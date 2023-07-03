@@ -50,7 +50,7 @@ jobs:
       run: poetry install --no-interaction --no-root
     - run: make lint
     - run: make test
-    - run: make integration-test
+    - run: make integration
 
   dependabot:
     needs: [ validate-actions, validate-python ]
