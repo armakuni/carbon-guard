@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - uses: specdown/setup-specdown-action@v0.2.8
     - name: Set up python 3.11
       id: setup-python
       uses: actions/setup-python@v4
@@ -49,6 +50,7 @@ jobs:
       run: poetry install --no-interaction --no-root
     - run: make lint
     - run: make test
+    - run: make integration-test
 
   dependabot:
     needs: [ validate-actions, validate-python ]

@@ -12,3 +12,6 @@ lint:
 
 test:
 	poetry run python -m pytest tests
+
+integration:
+	specdown run README.md

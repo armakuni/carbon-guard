@@ -1,2 +1,9 @@
-def print_hi(name: str) -> None:
-    print(f"Hi, {name}")  # Press ⌘F8 to toggle the breakpoint.
+import typer
+
+
+def main() -> None:
+    typer.echo("Hello World")
+
+
+def run() -> None:
+    typer.run(main)
