@@ -1,0 +1,96 @@
+name: Pipeline
+
+on:
+  push: ~
+  pull_request: ~
+  workflow_dispatch:
+
+jobs:
+  validate-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check workflow files
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
+        shell: bash
+
+  validate-python:
+    defaults:
+      run:
+        shell: bash
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up python 3.11
+      id: setup-python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+    - name: Load cached Poetry Binary
+      id: cached-poetry-binary
+      uses: actions/cache@v3
+      with:
+        path: ~/.local
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}
+    - run: curl -sSL https://install.python-poetry.org | python3 -
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      shell: bash
+      run: poetry install --no-interaction --no-root
+    - run: make lint
+    - run: make test
+
+  dependabot:
+    needs: [ validate-actions, validate-python ]
+    name: Dependabot Automerge
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' && ( github.head_ref || github.ref_name ) != 'main' }}
+    steps:
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --rebase "$PR_URL" || echo "Merge conflict caused failure, waiting for dependabot to rebase"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  release:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: [ validate-actions, validate-python ]
+    name: Release
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Cocogitto release
+        id: release
+        continue-on-error: true
+        uses: oknozor/cocogitto-action@v3.5
+        with:
+          release: true
+      - name: Generate Changelog
+        if: steps.release.outputs.version != ''
+        run: cog changelog --at ${{ steps.release.outputs.version }} -t full_hash > GITHUB_CHANGELOG.md
+
+      - name: Upload github release
+        if: steps.release.outputs.version != ''
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: GITHUB_CHANGELOG.md
+          tag_name: ${{ steps.release.outputs.version }}
