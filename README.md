@@ -109,5 +109,5 @@ Alternatively if you want to simply skip if the carbon intensity is too high you
         with:
           max_carbon_intensity: 500
       - run: echo Some complicated compute task
-        if: steps.carbon_guard.conclusion == 'success'
+        if: steps.carbon_guard.outcome == 'success'
 ```
