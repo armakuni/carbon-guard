@@ -17,30 +17,11 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: 3.11
-    - name: Load cached Poetry Binary
-      id: cached-poetry-binary
-      uses: actions/cache@v3
-      with:
-        path: ~/.local
-        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}
-    - shell: bash
-      working-directory: ${{ github.action_path }}
-      run: curl -sSL https://install.python-poetry.org | python3 -
-    - name: Load cached venv
-      id: cached-poetry-dependencies
-      uses: actions/cache@v3
-      with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-        restore-keys: |
-          venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-
     - name: Install dependencies
       working-directory: ${{ github.action_path }}
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       shell: bash
-      run: poetry install --no-interaction --no-root
-    - run: poetry run carbon_guard
-      working-directory: ${{ github.action_path }}
+      run: pip install -e .
+    - run: carbon_guard
       shell: bash
       env:
         MAX_CARBON_INTENSITY: ${{ inputs.max_carbon_intensity }}
