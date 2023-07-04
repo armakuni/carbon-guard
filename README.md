@@ -18,3 +18,11 @@ poetry run carbon_guard --help
 ╰──────────────────────────────────────────────────────────────────────────────╯
 
 ```
+
+```shell,script(name="carbon_check",  expected_exit_code=0)
+poetry run carbon_guard 
+```
+
+``` ,verify(script_name="carbon_check", stream=stdout)
+Carbon is low!
+```
