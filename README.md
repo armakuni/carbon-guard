@@ -2,6 +2,9 @@
 
 We are taking the workload to carbon guard (to carbon guard)  to carbon guard
 
+![image](https://github.com/armakuni/carbon-guard/assets/54274482/a4791a67-ac7b-4e7a-a5e4-bf1ceb8b3a9f)
+
+
 ## Usage
 
 ```shell,script(name="usage", expected_exit_code=0)
