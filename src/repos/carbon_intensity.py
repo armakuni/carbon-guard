@@ -1,8 +1,7 @@
 from pathlib import Path
 from typing import Protocol
-from urllib.parse import ParseResult
 
-from httpx import Client
+from httpx import URL, Client
 from pydantic import BaseModel, field_validator
 
 
@@ -49,8 +48,8 @@ class UkCarbonIntensityResponse(BaseModel):
 
 
 class UkCarbonIntensityApiRepo:
-    def __init__(self, base_url: ParseResult):
-        self._client = Client(base_url=base_url.geturl(), http2=True)
+    def __init__(self, base_url: URL):
+        self._client = Client(base_url=base_url, http2=True)
 
     def get_carbon_intensity(self) -> int:
         response = self._client.get("/intensity")
