@@ -1,0 +1,46 @@
+name: Carbon Guard
+description: Prevent pipelines running at times of high carbon intensity
+inputs:
+  max_carbon_intensity:
+    description: The max intensity in gCO2/kWh
+    required: true
+    default: 'true'
+  repository_mode:
+    description: Pattern to filter files by
+    required: false
+    default: uk-carbon-intensity
+runs:
+  using: "composite"
+  env:
+    MAX_CARBON_INTENSITY: ${{ inputs.max_carbon_intensity }}
+    REPOSITORY_MODE: ${{ inputs.repository_mode }}
+  steps:
+    - run: cd ${{ github.action_path }}
+    - name: Set up python 3.11
+      id: setup-python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+    - name: Load cached Poetry Binary
+      id: cached-poetry-binary
+      uses: actions/cache@v3
+      with:
+        path: ~/.local
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}
+    - run: curl -sSL https://install.python-poetry.org | python3 -
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      shell: bash
+      run: poetry install --no-interaction --no-root
+    - run: poetry run python -m carbon_guard
+branding:
+  icon: cloud-lightning
+  color: green

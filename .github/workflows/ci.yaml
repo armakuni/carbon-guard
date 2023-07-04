@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  validate-actions:
+  validate-pipeline:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,6 +15,14 @@ jobs:
           bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
           ./actionlint -color
         shell: bash
+
+  validate-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          max_carbon_intensity: 10000
 
   validate-python:
     defaults:
@@ -53,7 +61,7 @@ jobs:
     - run: make integration
 
   dependabot:
-    needs: [ validate-actions, validate-python ]
+    needs: [ validate-pipeline, validate-action, validate-python ]
     name: Dependabot Automerge
     permissions:
       contents: write
@@ -70,7 +78,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    needs: [ validate-actions, validate-python ]
+    needs: [ validate-pipeline, validate-action, validate-python ]
     name: Release
     permissions:
       contents: write
