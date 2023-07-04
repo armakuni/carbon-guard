@@ -15,13 +15,11 @@ runs:
     - name: Set up python 3.11
       id: setup-python
       uses: actions/setup-python@v4
-      working-directory: ${{ github.action_path }}
       with:
         python-version: 3.11
     - name: Load cached Poetry Binary
       id: cached-poetry-binary
       uses: actions/cache@v3
-      working-directory: ${{ github.action_path }}
       with:
         path: ~/.local
         key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}
@@ -29,7 +27,6 @@ runs:
       working-directory: ${{ github.action_path }}
       run: curl -sSL https://install.python-poetry.org | python3 -
     - name: Load cached venv
-      working-directory: ${{ github.action_path }}
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
