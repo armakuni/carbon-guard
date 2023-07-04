@@ -14,11 +14,19 @@ poetry run carbon_guard --help
  Usage: carbon_guard [OPTIONS]                                                  
                                                                                 
 ╭─ Options ────────────────────────────────────────────────────────────────────╮
-│ *  --max-carbon-intensity        INTEGER  Set the max carbon intensity in    │
-│                                           gCO2eq/kWh.                        │
-│                                           [default: None]                    │
-│                                           [required]                         │
-│    --help                                 Show this message and exit.        │
+│ *  --max-carbon-intensi…        INTEGER               Set the max carbon     │
+│                                                       intensity in           │
+│                                                       gCO2eq/kWh.            │
+│                                                       [default: None]        │
+│                                                       [required]             │
+│    --repository-mode            [file|uk-carbon-inte  Where to read carbon   │
+│                                 nsity]                intensity data from    │
+│                                                       [env var:              │
+│                                                       REPOSITORY_MODE]       │
+│                                                       [default:              │
+│                                                       uk-carbon-intensity]   │
+│    --help                                             Show this message and  │
+│                                                       exit.                  │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 
 ```
