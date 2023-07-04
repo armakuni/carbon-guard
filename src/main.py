@@ -3,6 +3,9 @@ from pathlib import Path
 
 from httpx import URL
 
+from src.cli.async_helper import async_to_sync
+from src.cli.parsers import parse_url
+
 UK_CARBON_INTENSITY_API_BASE_URL: URL = URL("https://api.carbonintensity.org.uk")
 FILE_FOR_INTENSITY_READING: str = ".carbon_intensity"
 
@@ -19,10 +22,6 @@ from src.repos.carbon_intensity import (
 class DataSource(StrEnum):
     FILE = "file"
     UK_CARBON_INTENSITY = "uk-carbon-intensity"
-
-
-def parse_url(url: str) -> URL:
-    return URL(url)
 
 
 def main(
@@ -57,10 +56,24 @@ def main(
         ),
     ] = UK_CARBON_INTENSITY_API_BASE_URL,
 ) -> None:
+    carbon_intensity(
+        data_source,
+        from_file_carbon_intensity_file_path,
+        max_carbon_intensity,
+        uk_carbon_intensity_api_base_url,
+    )
+
+
+@async_to_sync
+async def carbon_intensity(
+    data_source: DataSource,
+    from_file_carbon_intensity_file_path: Path,
+    max_carbon_intensity: int,
+    uk_carbon_intensity_api_base_url: URL,
+) -> None:
     intensity_repo: CarbonIntensityRepo = FromFileCarbonIntensityRepo(
         from_file_carbon_intensity_file_path
     )
-
     match data_source:
         case DataSource.FILE:
             intensity_repo = intensity_repo
@@ -68,11 +81,9 @@ def main(
             intensity_repo = UkCarbonIntensityApiRepo(
                 base_url=uk_carbon_intensity_api_base_url
             )
-
-    if intensity_repo.get_carbon_intensity() > max_carbon_intensity:
+    if await intensity_repo.get_carbon_intensity() > max_carbon_intensity:
         typer.echo("Carbon levels exceed threshold, skipping.")
         raise typer.Exit(1)
-
     typer.echo("Carbon levels under threshold, proceeding.")
 
 

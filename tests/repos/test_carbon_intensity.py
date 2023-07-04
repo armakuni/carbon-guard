@@ -82,10 +82,14 @@ class TestCarbonIntensityRepository:
     def expected_carbon_intensity(self) -> int:
         return 7
 
-    def test_gives_me_a_global_carbon_intensity_repo(
+    @pytest.mark.asyncio
+    async def test_gives_me_a_global_carbon_intensity_repo(
         self, carbon_intensity_repo: CarbonIntensityRepo, expected_carbon_intensity: int
     ) -> None:
-        assert carbon_intensity_repo.get_carbon_intensity() == expected_carbon_intensity
+        assert (
+            await carbon_intensity_repo.get_carbon_intensity()
+            == expected_carbon_intensity
+        )
 
 
 def test_no_uk_carbon_intensity_data_raises() -> None:
