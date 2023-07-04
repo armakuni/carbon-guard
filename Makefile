@@ -14,4 +14,4 @@ test:
 	poetry run python -m pytest tests
 
 integration:
-	specdown run README.md
+	specdown run README.md --add-path ${PWD}/tests/scripts
