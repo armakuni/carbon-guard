@@ -2,6 +2,31 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.5.0](https://github.com/armakuni/carbon-guard/compare/v0.4.1..v0.5.0) - 2023-07-05
+#### Bug Fixes
+- up max retries on wiremock - ([3e0244c](https://github.com/armakuni/carbon-guard/commit/3e0244c1c6bf42423d401d717ab3edc253268679)) - Adam Gardner
+- env vars for actions - ([72172c9](https://github.com/armakuni/carbon-guard/commit/72172c9aee2a18c3eab531ea57e2d27eeb89e147)) - Adam Gardner
+- up max retries on wiremock - ([4c9ba00](https://github.com/armakuni/carbon-guard/commit/4c9ba0021581a8bc14ffbafb19a75ce643d4ad82)) - Adam Gardner
+#### Build system
+- **(deps)** Bump pydantic from 2.0 to 2.0.1 - ([d81f6e3](https://github.com/armakuni/carbon-guard/commit/d81f6e39db7d9e5e7a7cb830457142d0775b540d)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.0.276 to 0.0.277 - ([4b4247d](https://github.com/armakuni/carbon-guard/commit/4b4247def3e3daa6de04aee82271e4e6a18096dc)) - dependabot[bot]
+- Correct the links in the changelog - ([bfa636c](https://github.com/armakuni/carbon-guard/commit/bfa636c73e58b5c4c5fec811b355be2212c6b291)) - Billie Thompson
+#### Continuous Integration
+- add co2_signal_api_key to integration test - ([c1ea60d](https://github.com/armakuni/carbon-guard/commit/c1ea60da7a4bc68db8a44dbc5f0c92e6a1e5e1b6)) - Adam Gardner
+#### Documentation
+- Add a more professional description - ([6e5f230](https://github.com/armakuni/carbon-guard/commit/6e5f23086e5304e457c2ed63444c632f32f6b734)) - Billie Thompson
+- updated example usage to check outcome instead of conclusion - ([d22da08](https://github.com/armakuni/carbon-guard/commit/d22da08ed59c47dcd7441e09bbc8cfb8f18ed43a)) - Adam Gardner
+- Update README.md - ([8f46860](https://github.com/armakuni/carbon-guard/commit/8f468606ab294df76138b2ece05442a32d7eb3ff)) - Adam Gardner
+- Add how to add it to a pipeline to the docs - ([4e804c6](https://github.com/armakuni/carbon-guard/commit/4e804c6eff10017751869e9ca3afe3dce0d5f170)) - Billie Thompson
+#### Features
+- introduced new co2 signal api - ([fd320ba](https://github.com/armakuni/carbon-guard/commit/fd320bab57e386c49cfe68afd281690b1985fe04)) - Adam Gardner
+#### Miscellaneous Chores
+- **(version)** v0.4.1 - ([a96b80b](https://github.com/armakuni/carbon-guard/commit/a96b80b39cd194e7fb9d6b7772dd655fb6c366bb)) - cog-bot
+#### Refactoring
+- formatting - ([1e518ab](https://github.com/armakuni/carbon-guard/commit/1e518aba8b4190d3dd57dd2094a270212931d843)) - Adam Gardner
+
+- - -
+
 ## [v0.4.1](https://github.com/armakuni/is-it-green-yet/compare/v0.4.0..v0.4.1) - 2023-07-04
 #### Bug Fixes
 - Simplify composite action - ([5ada25e](https://github.com/armakuni/is-it-green-yet/commit/5ada25e7cad97f1ac9698948032f7053f78ae4e0)) - Billie Thompson
