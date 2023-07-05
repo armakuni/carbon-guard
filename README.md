@@ -66,10 +66,8 @@ poetry run carbon_guard --help
 ╰──────────────────────────────────────────────────────────────────────────────╯
 
 ```
-
-### Examples
-
-Examples for comparing current carbon intensity levels to global carbon intensity
+### Common use case
+When comparing current carbon intensity levels to global carbon intensity
 based on gCO2eq/kWh.
 
 Comparing carbon levels with the expected outcome for high carbon intensity:
@@ -94,9 +92,16 @@ poetry run carbon_guard --max-carbon-intensity=999
 Carbon levels under threshold, proceeding.
 ```
 
+## Data Sources
+* [National Grid ESO Carbon Intensity](#national-grid-eso-carbon-intensity)
+* [CO2 Signal](#co2-signal)
+
 You may change the data source by specifying the `--data-source` flag.
-using the [national-grid-eso-carbon-intensity data source](https://carbonintensity.org.uk/):
-[**note**] this only supplies data for the united kingdom.
+
+
+## National Grid ESO Carbon Intensity
+Using the [national-grid-eso-carbon-intensity data source](https://carbonintensity.org.uk/).
+[**note**] this only supplies data for the United Kingdom.
 
 ```shell,script(name="national_grid_eso_carbon_threshold_ok",  expected_exit_code=0)
 poetry run carbon_guard --data-source national-grid-eso-carbon-intensity --max-carbon-intensity=100000
@@ -106,7 +111,10 @@ poetry run carbon_guard --data-source national-grid-eso-carbon-intensity --max-c
 Carbon levels under threshold, proceeding.
 ```
 
-using the [co2-signal data source](https://www.co2signal.com/)
+### CO2 Signal 
+Using the [co2-signal data source](https://www.co2signal.com/)
+[**note**] This data source requires an account (free/paid) which will supply an API key for usage.
+
 ```shell,script(name="co2-signal-carbon-threshold-ok",  expected_exit_code=0)
 # export CO2_SIGNAL_API_KEY=<your_api_key_here>
 poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
@@ -115,9 +123,8 @@ poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 -
 ``` ,verify(script_name="co2-signal-carbon-threshold-ok", stream=stdout)
 Carbon levels under threshold, proceeding.
 ```
+
 #### Errors
-
-
 if you don't provide a `co2-signal-country-code` the call will fail.
 ```shell,script(name="co2-signal-no-country-code-error",  expected_exit_code=1)
 # export CO2_SIGNAL_API_KEY=<your_api_key_here>
@@ -138,8 +145,11 @@ poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 -
 No API key found for CO2 Signal API.
 ```
 
-### Adding to your pipelines
-You can also use it as a GitHub action
+## Adding to your pipelines
+This tool is intended to be run inside a pipeline to either fail or skip steps within, based on the current carbon intensity levels.
+
+### Using GitHub Actions
+If you intend to fail the build based on the carbon intensity level
 
 ```yaml,skip()
   validate-action:
@@ -151,7 +161,7 @@ You can also use it as a GitHub action
       - run: echo Some complicated compute task
 ```
 
-Alternatively if you want to simply skip if the carbon intensity is too high you can use the `continue-on-error` flag.
+Alternatively if you want to simply skip a step if the carbon intensity is too high you can use the `continue-on-error` flag.
 
 ```yaml,skip()
   validate-action:
@@ -164,4 +174,11 @@ Alternatively if you want to simply skip if the carbon intensity is too high you
           max_carbon_intensity: 500
       - run: echo Some complicated compute task
         if: steps.carbon_guard.outcome == 'success'
+```
+
+### Other pipelines
+You can run in other pipelines as a command line tool
+```shell, skip()
+pip install git+https://github.com/armakuni/carbon-guard.git
+carbon_guard --help
 ```
