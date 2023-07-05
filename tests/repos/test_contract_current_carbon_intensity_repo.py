@@ -1,3 +1,5 @@
+import csv
+import datetime as dt
 import json
 import tempfile
 from pathlib import Path
@@ -22,58 +24,48 @@ from src.repos.carbon_intensity.in_memory import InMemoryCarbonIntensityRepo
 from src.repos.carbon_intensity.national_grid_eso import (
     NationalGridESOCarbonIntensityApiRepo,
 )
-from src.repos.carbon_intensity.protocol import CarbonIntensityRepo
+from src.repos.carbon_intensity.protocol import CurrentCarbonIntensityRepo
 
 
 class TestCarbonIntensityRepository:
     @pytest.fixture(params=["inmemory", "file", "uk-carbon-intensity", "co2-signal"])
     def carbon_intensity_repo(
-        self, request: FixtureRequest, expected_carbon_intensity: int
-    ) -> Generator[CarbonIntensityRepo, None, None]:
+        self,
+        request: FixtureRequest,
+        expected_carbon_intensity: int,
+        expected_run_time: dt.datetime,
+    ) -> Generator[CurrentCarbonIntensityRepo, None, None]:
+        now = dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+
+        intensities: list[tuple[dt.datetime, int]] = [
+            (now, expected_carbon_intensity),
+            (expected_run_time, 1),
+            (expected_run_time + dt.timedelta(seconds=40), 9999999999),
+            (
+                expected_run_time + dt.timedelta(days=100),
+                expected_carbon_intensity - 10,
+            ),
+        ]
+
         if request.param == "inmemory":
-            yield InMemoryCarbonIntensityRepo(
-                carbon_intensity=expected_carbon_intensity
-            )
-            return
+            yield InMemoryCarbonIntensityRepo(carbon_intensity=intensities)
 
         if request.param == "file":
-            with tempfile.NamedTemporaryFile() as file:
-                file.write(str(expected_carbon_intensity).encode("utf8"))
-                file.seek(0)
-                yield FromFileCarbonIntensityRepo(file_path=Path(file.name))
+            with tempfile.NamedTemporaryFile(
+                mode="w", encoding="utf-8"
+            ) as named_temp_file:
+                csv_writer = csv.writer(named_temp_file)
+
+                for occurrence_time, occurrence_value in intensities:
+                    csv_writer.writerow([occurrence_time.isoformat(), occurrence_value])
+
+                named_temp_file.seek(0)
+                yield FromFileCarbonIntensityRepo(file_path=Path(named_temp_file.name))
 
         if request.param == "uk-carbon-intensity":
             with WireMockServer(max_attempts=100) as wm:
                 base_url = f"http://localhost:{wm.port}"
-                Config.base_url = f"{base_url}/__admin"
-
-                current_intensity = Mapping(
-                    priority=100,
-                    request=MappingRequest(
-                        method=HttpMethods.GET,
-                        url_path="/intensity",
-                    ),
-                    response=MappingResponse(
-                        status=200,
-                        body=json.dumps(
-                            {
-                                "data": [
-                                    {
-                                        "from": "2023-07-04T10:00Z",
-                                        "to": "2023-07-04T10:30Z",
-                                        "intensity": {
-                                            "forecast": 116,
-                                            "actual": expected_carbon_intensity,
-                                            "index": "moderate",
-                                        },
-                                    }
-                                ]
-                            }
-                        ),
-                    ),
-                )
-
-                Mappings.create_mapping(mapping=current_intensity)
+                self.uk_carbon_intensity_fixture(base_url, expected_carbon_intensity)
                 yield NationalGridESOCarbonIntensityApiRepo(base_url=URL(base_url))
 
         if request.param == "co2-signal":
@@ -114,13 +106,54 @@ class TestCarbonIntensityRepository:
 
         return None
 
+    @staticmethod
+    def uk_carbon_intensity_fixture(
+        base_url: str,
+        expected_carbon_intensity: int,
+    ) -> None:
+        Config.base_url = f"{base_url}/__admin"
+        current_intensity = Mapping(
+            priority=100,
+            request=MappingRequest(
+                method=HttpMethods.GET,
+                url_path="/intensity",
+            ),
+            response=MappingResponse(
+                status=200,
+                body=json.dumps(
+                    {
+                        "data": [
+                            {
+                                "from": "2023-07-04T10:00Z",
+                                "to": "2023-07-04T10:30Z",
+                                "intensity": {
+                                    "forecast": 116,
+                                    "actual": expected_carbon_intensity,
+                                    "index": "moderate",
+                                },
+                            }
+                        ]
+                    }
+                ),
+            ),
+        )
+        Mappings.create_mapping(mapping=current_intensity)
+
     @pytest.fixture()
     def expected_carbon_intensity(self) -> int:
         return 7
 
+    @pytest.fixture()
+    def expected_run_time(self) -> dt.datetime:
+        return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc) + dt.timedelta(
+            days=2
+        )
+
     @pytest.mark.asyncio
-    async def test_gives_me_a_global_carbon_intensity_repo(
-        self, carbon_intensity_repo: CarbonIntensityRepo, expected_carbon_intensity: int
+    async def test_gives_me_a_carbon_intensity(
+        self,
+        carbon_intensity_repo: CurrentCarbonIntensityRepo,
+        expected_carbon_intensity: int,
     ) -> None:
         assert (
             await carbon_intensity_repo.get_carbon_intensity()

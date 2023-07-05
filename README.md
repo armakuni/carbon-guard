@@ -7,13 +7,39 @@ pipelines from running when the carbon intensity is high.
 
 ## Usage
 
+
 ```shell,script(name="usage",expected_exit_code=0)
 poetry run carbon_guard --help
 ```
 
 ``` ,verify(script_name="usage",stream=stdout)
                                                                                 
- Usage: carbon_guard [OPTIONS]                                                  
+ Usage: carbon_guard [OPTIONS] COMMAND [ARGS]...                                
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --install-completion          Install completion for the current shell.      │
+│ --show-completion             Show completion for the current shell, to copy │
+│                               it or customize the installation.              │
+│ --help                        Show this message and exit.                    │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────╮
+│ check            Check the current carbon intensity.                         │
+│ schedule         Find the lowest carbon time.                                │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+```
+
+### Check
+
+```shell,script(name="usage-check",expected_exit_code=0)
+poetry run carbon_guard check --help
+```
+
+``` ,verify(script_name="usage-check",stream=stdout)
+                                                                                
+ Usage: carbon_guard check [OPTIONS]                                            
+                                                                                
+ Check the current carbon intensity.                                            
                                                                                 
 ╭─ Options ────────────────────────────────────────────────────────────────────╮
 │ *  --max-carbon-in…                       INTEGER           Set the max      │
@@ -48,16 +74,16 @@ poetry run carbon_guard --help
 │                                                             FROM_FILE_CARBO… │
 │                                                             [default:        │
 │                                                             .carbon_intensi… │
-│    --nation-grid-e…                       PARSE_URL         URL for the      │
-│                                                             National Grid    │
+│    --national-grid…                       HTTP_OR_HTTPS_UR  URL for the      │
+│                                           L                 National Grid    │
 │                                                             ESO Carbon       │
 │                                                             Intensity API    │
 │                                                             [env var:        │
 │                                                             NATIONAL_GRID_E… │
 │                                                             [default:        │
 │                                                             https://api.car… │
-│    --co2-signal-ca…                       PARSE_URL         URL for the CO2  │
-│                                                             Signal api       │
+│    --co2-signal-ca…                       HTTP_OR_HTTPS_UR  URL for the CO2  │
+│                                           L                 Signal api       │
 │                                                             [env var:        │
 │                                                             CO2_SIGNAL_API_… │
 │                                                             [default:        │
@@ -83,6 +109,51 @@ poetry run carbon_guard --help
 
 ```
 
+### Schedule
+
+```shell,script(name="usage-schedule",expected_exit_code=0)
+poetry run carbon_guard schedule --help
+```
+
+``` ,verify(script_name="usage-schedule",stream=stdout)
+                                                                                
+ Usage: carbon_guard schedule [OPTIONS]                                         
+                                                                                
+ Find the lowest carbon time.                                                   
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ *  --within                     HUMAN_READABLE_DURATI  Time period to        │
+│                                 ON                     predict the lowest    │
+│                                                        intensity within      │
+│                                                        [env var: WITHIN]     │
+│                                                        [default: None]       │
+│                                                        [required]            │
+│    --data-source                [file|national-grid-e  Where to read carbon  │
+│                                 so-carbon-intensity]   intensity data from   │
+│                                                        [env var:             │
+│                                                        DATA_SOURCE]          │
+│                                                        [default:             │
+│                                                        national-grid-eso-ca… │
+│    --from-file-carbon-i…        PATH                   File to read carbon   │
+│                                                        intensity from in     │
+│                                                        file mode             │
+│                                                        [env var:             │
+│                                                        FROM_FILE_CARBON_INT… │
+│                                                        [default:             │
+│                                                        .carbon_intensity]    │
+│    --national-grid-eso-…        HTTP_OR_HTTPS_URL      URL for the National  │
+│                                                        Grid ESO Carbon       │
+│                                                        Intensity API         │
+│                                                        [env var:             │
+│                                                        NATIONAL_GRID_ESO_CA… │
+│                                                        [default:             │
+│                                                        https://api.carbonin… │
+│    --help                                              Show this message and │
+│                                                        exit.                 │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+```
+
 ### Common use case
 
 When comparing current carbon intensity levels to global carbon intensity
@@ -92,7 +163,7 @@ Comparing carbon levels with the expected outcome for high carbon intensity:
 
 ```shell,script(name="carbon_threshold_exceeded",  expected_exit_code=1)
 carbon_intensity_is 1000
-poetry run carbon_guard --max-carbon-intensity=999
+poetry run carbon_guard check --max-carbon-intensity=999
 ```
 
 ``` ,verify(script_name="carbon_threshold_exceeded", stream=stdout)
@@ -103,14 +174,14 @@ You may also return a successful exit code even on high carbon intensity by pass
 
 ```shell,script(name="carbon_threshold_exceeded_and_skipped",  expected_exit_code=0)
 carbon_intensity_is 1000
-poetry run carbon_guard --max-carbon-intensity=999 --advise-only
+poetry run carbon_guard check --max-carbon-intensity=999 --advise-only
 ```
 
 Comparing carbon levels with the expected outcome for low carbon intensity:
 
 ```shell,script(name="carbon_threshold_ok",  expected_exit_code=0)
 carbon_intensity_is 999
-poetry run carbon_guard --max-carbon-intensity=999
+poetry run carbon_guard check --max-carbon-intensity=999
 ```
 
 ``` ,verify(script_name="carbon_threshold_ok", stream=stdout)
@@ -130,21 +201,29 @@ Using the [national-grid-eso-carbon-intensity data source](https://carbonintensi
 [**note**] this only supplies data for the United Kingdom.
 
 ```shell,script(name="national_grid_eso_carbon_threshold_ok",  expected_exit_code=0)
-poetry run carbon_guard --data-source national-grid-eso-carbon-intensity --max-carbon-intensity=100000
+poetry run carbon_guard check --data-source national-grid-eso-carbon-intensity --max-carbon-intensity=100000
 ```
 
 ``` ,skip()
 Carbon intensity is 98 gCO2eq/kWh, which is below or equal to the max of 100000 gCO2eq/kWh
 ```
 
+```shell,script(name="national_grid_eso_carbon_threshold_ok",  expected_exit_code=0)
+poetry run carbon_guard schedule --data-source national-grid-eso-carbon-intensity --within "1 hour"
+```
+
+``` ,skip()
+2023-07-07T09:30:00+00:00
+```
+
 ### CO2 Signal
 
 Using the [co2-signal data source](https://www.co2signal.com/)
-[**note**] This data source requires an account (free/paid) which will supply an API key for usage.
+[**note**] This data source requires an account (free/paid) which will supply an API key for usage, and does not support forecasting.
 
 ```shell,script(name="co2-signal-carbon-threshold-ok",  expected_exit_code=0)
 # export CO2_SIGNAL_API_KEY=<your_api_key_here>
-poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
+poetry run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
 ```
 
 ``` ,skip()
@@ -157,7 +236,7 @@ if you don't provide a `co2-signal-country-code` the call will fail.
 
 ```shell,script(name="co2-signal-no-country-code-error",  expected_exit_code=1)
 # export CO2_SIGNAL_API_KEY=<your_api_key_here>
-poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000
+poetry run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000
 ```
 
 ``` ,verify(script_name="co2-signal-no-country-code-error", stream=stdout)
@@ -168,7 +247,7 @@ if you don't provide a `co2-signal-api-key` the call will fail.
 
 ```shell,script(name="co2-signal-no-api-key-error",  expected_exit_code=1)
 export CO2_SIGNAL_API_KEY=""
-poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
+poetry run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
 ```
 
 ``` ,verify(script_name="co2-signal-no-api-key-error", stream=stdout)

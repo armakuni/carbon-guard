@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 set -eu -o pipefail
 
-echo "$1" > .carbon_intensity
+NOW="$(python -c 'import datetime; print(datetime.datetime.utcnow().isoformat())')"
+echo "$NOW,$1" > .carbon_intensity

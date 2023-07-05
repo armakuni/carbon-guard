@@ -1,4 +1,4 @@
-from enum import StrEnum
+import datetime as dt
 from pathlib import Path
 from typing import Optional
 
@@ -6,31 +6,28 @@ import typer
 from httpx import URL
 from typing_extensions import Annotated
 
-from src.cli.async_helper import async_to_sync
-from src.cli.parsers import parse_url
-from src.repos.carbon_intensity.co2_signal import CO2SignalCarbonIntensityRepo
-from src.repos.carbon_intensity.file import FromFileCarbonIntensityRepo
-from src.repos.carbon_intensity.national_grid_eso import (
-    NationalGridESOCarbonIntensityApiRepo,
+from src.cli.command.check import run as check_run
+from src.cli.command.schedule import run as schedule_run
+from src.cli.parsers import http_or_https_url, human_readable_duration
+from src.repos.carbon_intensity.protocol import (
+    CurrentIntensityDataSource,
+    ForecastLowIntensityDateDataSource,
+    MissingParameterError,
+    make_current_intensity_repo,
+    make_forecast_low_intensity_date_repo,
 )
-from src.repos.carbon_intensity.protocol import CarbonIntensityRepo
 
 NATIONAL_GRID_ESO_CARBON_INTENSITY_API_BASE_URL: URL = URL(
     "https://api.carbonintensity.org.uk"
 )
 CO2_SIGNAL_API_BASE_URL: URL = URL("https://api.co2signal.com")
 FILE_FOR_INTENSITY_READING: str = ".carbon_intensity"
-SUCCESS_TEMPLATE: str = "Carbon intensity is {carbon_intensity} gCO2eq/kWh, which is below or equal to the max of {max_carbon_intensity} gCO2eq/kWh"
-FAILURE_TEMPLATE: str = "Carbon intensity is {carbon_intensity} gCO2eq/kWh, which is above the max of {max_carbon_intensity} gCO2eq/kWh"
+
+app = typer.Typer()
 
 
-class DataSource(StrEnum):
-    FILE = "file"
-    NATIONAL_GRID_ESO_CARBON_INTENSITY = "national-grid-eso-carbon-intensity"
-    CO2_SIGNAL = "co2-signal"
-
-
-def main(
+@app.command(help="Check the current carbon intensity.")
+def check(
     max_carbon_intensity: Annotated[
         int,
         typer.Option(
@@ -46,13 +43,13 @@ def main(
         ),
     ] = False,
     data_source: Annotated[
-        DataSource,
+        CurrentIntensityDataSource,
         typer.Option(
             case_sensitive=False,
             envvar="DATA_SOURCE",
             help="Where to read carbon intensity data from",
         ),
-    ] = DataSource.NATIONAL_GRID_ESO_CARBON_INTENSITY,
+    ] = CurrentIntensityDataSource.NATIONAL_GRID_ESO_CARBON_INTENSITY,
     from_file_carbon_intensity_file_path: Annotated[
         Path,
         typer.Option(
@@ -60,12 +57,12 @@ def main(
             help="File to read carbon intensity from in file mode",
         ),
     ] = Path(FILE_FOR_INTENSITY_READING),
-    nation_grid_eso_carbon_intensity_api_base_url: Annotated[
+    national_grid_eso_carbon_intensity_api_base_url: Annotated[
         URL,
         typer.Option(
             envvar="NATIONAL_GRID_ESO_CARBON_INTENSITY_API_BASE_URL",
             help="URL for the National Grid ESO Carbon Intensity API",
-            parser=parse_url,
+            parser=http_or_https_url,
         ),
     ] = NATIONAL_GRID_ESO_CARBON_INTENSITY_API_BASE_URL,
     co2_signal_carbon_intensity_api_base_url: Annotated[
@@ -73,7 +70,7 @@ def main(
         typer.Option(
             envvar="CO2_SIGNAL_API_BASE_URL",
             help="URL for the CO2 Signal api",
-            parser=parse_url,
+            parser=http_or_https_url,
         ),
     ] = CO2_SIGNAL_API_BASE_URL,
     co2_signal_api_key: Annotated[
@@ -91,68 +88,74 @@ def main(
         ),
     ] = None,
 ) -> None:
-    carbon_intensity(
-        data_source,
-        advise_only,
-        from_file_carbon_intensity_file_path,
+    try:
+        intensity_repo = make_current_intensity_repo(
+            co2_signal_api_key,
+            co2_signal_carbon_intensity_api_base_url,
+            co2_signal_country_code,
+            data_source,
+            from_file_carbon_intensity_file_path,
+            national_grid_eso_carbon_intensity_api_base_url,
+        )
+    except MissingParameterError as e:
+        typer.echo(f"{e}")
+        raise typer.Exit(1) from e
+
+    check_run(
         max_carbon_intensity,
-        nation_grid_eso_carbon_intensity_api_base_url,
-        co2_signal_carbon_intensity_api_base_url,
-        co2_signal_api_key,
-        co2_signal_country_code,
+        advise_only,
+        intensity_repo,
     )
 
 
-@async_to_sync
-async def carbon_intensity(
-    data_source: DataSource,
-    advise_only: bool,
-    from_file_carbon_intensity_file_path: Path,
-    max_carbon_intensity: int,
-    national_grid_eso_carbon_intensity_api_base_url: URL,
-    co2_signal_carbon_intensity_api_base_url: URL,
-    co2_signal_api_key: Optional[str],
-    co2_signal_country_code: Optional[str],
+@app.command(help="Find the lowest carbon time.")
+def schedule(
+    within: Annotated[
+        dt.timedelta,
+        typer.Option(
+            envvar="WITHIN",
+            help="Time period to predict the lowest intensity within",  #
+            parser=human_readable_duration,
+        ),
+    ],
+    data_source: Annotated[
+        ForecastLowIntensityDateDataSource,
+        typer.Option(
+            case_sensitive=False,
+            envvar="DATA_SOURCE",
+            help="Where to read carbon intensity data from",
+        ),
+    ] = ForecastLowIntensityDateDataSource.NATIONAL_GRID_ESO_CARBON_INTENSITY,
+    from_file_carbon_intensity_file_path: Annotated[
+        Path,
+        typer.Option(
+            envvar="FROM_FILE_CARBON_INTENSITY_FILE_PATH",
+            help="File to read carbon intensity from in file mode",
+        ),
+    ] = Path(FILE_FOR_INTENSITY_READING),
+    national_grid_eso_carbon_intensity_api_base_url: Annotated[
+        URL,
+        typer.Option(
+            envvar="NATIONAL_GRID_ESO_CARBON_INTENSITY_API_BASE_URL",
+            help="URL for the National Grid ESO Carbon Intensity API",
+            parser=http_or_https_url,
+        ),
+    ] = NATIONAL_GRID_ESO_CARBON_INTENSITY_API_BASE_URL,
 ) -> None:
-    intensity_repo: CarbonIntensityRepo = FromFileCarbonIntensityRepo(
-        from_file_carbon_intensity_file_path
+    intensity_repo = make_forecast_low_intensity_date_repo(
+        data_source,
+        from_file_carbon_intensity_file_path,
+        national_grid_eso_carbon_intensity_api_base_url,
     )
-    match data_source:
-        case DataSource.FILE:
-            intensity_repo = intensity_repo
-        case DataSource.NATIONAL_GRID_ESO_CARBON_INTENSITY:
-            intensity_repo = NationalGridESOCarbonIntensityApiRepo(
-                base_url=national_grid_eso_carbon_intensity_api_base_url
-            )
-        case DataSource.CO2_SIGNAL:
-            if not co2_signal_country_code:
-                typer.echo("No country code provided to CO2 Signal Api.")
-                raise typer.Exit(1)
-
-            if not co2_signal_api_key:
-                typer.echo("No API key found for CO2 Signal API.")
-                raise typer.Exit(1)
-
-            intensity_repo = CO2SignalCarbonIntensityRepo(
-                base_url=co2_signal_carbon_intensity_api_base_url,
-                api_key=co2_signal_api_key,
-                country_code=co2_signal_country_code,
-            )
-    carbon_intensity = await intensity_repo.get_carbon_intensity()
-    if carbon_intensity > max_carbon_intensity:
-        typer.echo(
-            FAILURE_TEMPLATE.format(
-                max_carbon_intensity=max_carbon_intensity,
-                carbon_intensity=carbon_intensity,
-            )
-        )
-        raise typer.Exit(1 if not advise_only else 0)
-    typer.echo(
-        SUCCESS_TEMPLATE.format(
-            max_carbon_intensity=max_carbon_intensity, carbon_intensity=carbon_intensity
-        )
+    schedule_run(
+        within,
+        intensity_repo,
     )
 
 
 def run() -> None:
-    typer.run(main)
+    app()
+
+
+if __name__ == "__main__":
+    run()
