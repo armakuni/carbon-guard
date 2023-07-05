@@ -96,7 +96,7 @@ poetry run carbon_guard --max-carbon-intensity=999
 ```
 
 ``` ,verify(script_name="carbon_threshold_exceeded", stream=stdout)
-Carbon levels exceed threshold, skipping.
+Carbon intensity is 1000 gCO2eq/kWh, which is above the max of 999 gCO2eq/kWh
 ```
 
 You may also return a successful exit code even on high carbon intensity by passing the `--advise-only` flag.
@@ -104,10 +104,6 @@ You may also return a successful exit code even on high carbon intensity by pass
 ```shell,script(name="carbon_threshold_exceeded_and_skipped",  expected_exit_code=0)
 carbon_intensity_is 1000
 poetry run carbon_guard --max-carbon-intensity=999 --advise-only
-```
-
-``` ,verify(script_name="carbon_threshold_exceeded_and_skipped", stream=stdout)
-Carbon levels exceed threshold, skipping.
 ```
 
 Comparing carbon levels with the expected outcome for low carbon intensity:
@@ -118,7 +114,7 @@ poetry run carbon_guard --max-carbon-intensity=999
 ```
 
 ``` ,verify(script_name="carbon_threshold_ok", stream=stdout)
-Carbon levels under threshold, proceeding.
+Carbon intensity is 999 gCO2eq/kWh, which is below or equal to the max of 999 gCO2eq/kWh
 ```
 
 ## Data Sources
@@ -137,8 +133,8 @@ Using the [national-grid-eso-carbon-intensity data source](https://carbonintensi
 poetry run carbon_guard --data-source national-grid-eso-carbon-intensity --max-carbon-intensity=100000
 ```
 
-``` ,verify(script_name="national_grid_eso_carbon_threshold_ok", stream=stdout)
-Carbon levels under threshold, proceeding.
+``` ,skip()
+Carbon intensity is 98 gCO2eq/kWh, which is below or equal to the max of 100000 gCO2eq/kWh
 ```
 
 ### CO2 Signal
@@ -151,8 +147,8 @@ Using the [co2-signal data source](https://www.co2signal.com/)
 poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
 ```
 
-``` ,verify(script_name="co2-signal-carbon-threshold-ok", stream=stdout)
-Carbon levels under threshold, proceeding.
+``` ,skip()
+Carbon intensity is 107 gCO2eq/kWh, which is below or equal to the max of 100000 gCO2eq/kWh
 ```
 
 #### Errors

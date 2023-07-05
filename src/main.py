@@ -20,6 +20,8 @@ NATIONAL_GRID_ESO_CARBON_INTENSITY_API_BASE_URL: URL = URL(
 )
 CO2_SIGNAL_API_BASE_URL: URL = URL("https://api.co2signal.com")
 FILE_FOR_INTENSITY_READING: str = ".carbon_intensity"
+SUCCESS_TEMPLATE: str = "Carbon intensity is {carbon_intensity} gCO2eq/kWh, which is below or equal to the max of {max_carbon_intensity} gCO2eq/kWh"
+FAILURE_TEMPLATE: str = "Carbon intensity is {carbon_intensity} gCO2eq/kWh, which is above the max of {max_carbon_intensity} gCO2eq/kWh"
 
 
 class DataSource(StrEnum):
@@ -136,10 +138,20 @@ async def carbon_intensity(
                 api_key=co2_signal_api_key,
                 country_code=co2_signal_country_code,
             )
-    if await intensity_repo.get_carbon_intensity() > max_carbon_intensity:
-        typer.echo("Carbon levels exceed threshold, skipping.")
+    carbon_intensity = await intensity_repo.get_carbon_intensity()
+    if carbon_intensity > max_carbon_intensity:
+        typer.echo(
+            FAILURE_TEMPLATE.format(
+                max_carbon_intensity=max_carbon_intensity,
+                carbon_intensity=carbon_intensity,
+            )
+        )
         raise typer.Exit(1 if not advise_only else 0)
-    typer.echo("Carbon levels under threshold, proceeding.")
+    typer.echo(
+        SUCCESS_TEMPLATE.format(
+            max_carbon_intensity=max_carbon_intensity, carbon_intensity=carbon_intensity
+        )
+    )
 
 
 def run() -> None:
