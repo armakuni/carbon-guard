@@ -26,7 +26,7 @@ poetry run carbon_guard --help
 │    --data-source                [file|national-grid-e  Where to read carbon  │
 │                                 so-carbon-intensity|c  intensity data from   │
 │                                 o2-signal]             [env var:             │
-│                                                        REPOSITORY_MODE]      │
+│                                                        DATA_SOURCE]          │
 │                                                        [default:             │
 │                                                        national-grid-eso-ca… │
 │    --from-file-carbon-i…        PATH                   File to read carbon   │
