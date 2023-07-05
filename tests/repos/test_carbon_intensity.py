@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Generator
 
 import pytest
-from httpx import URL
+from httpx import URL, Request
 from pytest import FixtureRequest
 from wiremock.constants import Config
 from wiremock.resources.mappings import (
@@ -18,15 +18,17 @@ from wiremock.server import WireMockServer
 
 from src.repos.carbon_intensity import (
     CarbonIntensityRepo,
+    CO2SignalAuthClient,
+    CO2SignalCarbonIntensityRepo,
     FromFileCarbonIntensityRepo,
     InMemoryCarbonIntensityRepo,
-    UkCarbonIntensityApiRepo,
-    UkCarbonIntensityResponse,
+    NationalGridESOCarbonIntensityApiRepo,
+    NationalGridESOCarbonIntensityResponse,
 )
 
 
 class TestCarbonIntensityRepository:
-    @pytest.fixture(params=["inmemory", "file", "uk-carbon-intensity"])
+    @pytest.fixture(params=["inmemory", "file", "uk-carbon-intensity", "co2-signal"])
     def carbon_intensity_repo(
         self, request: FixtureRequest, expected_carbon_intensity: int
     ) -> Generator[CarbonIntensityRepo, None, None]:
@@ -74,7 +76,43 @@ class TestCarbonIntensityRepository:
                 )
 
                 Mappings.create_mapping(mapping=current_intensity)
-                yield UkCarbonIntensityApiRepo(base_url=URL(base_url))
+                yield NationalGridESOCarbonIntensityApiRepo(base_url=URL(base_url))
+
+        if request.param == "co2-signal":
+            with WireMockServer() as wm:
+                base_url = f"http://localhost:{wm.port}"
+                Config.base_url = f"{base_url}/__admin"
+
+                current_intensity = Mapping(
+                    priority=100,
+                    request=MappingRequest(
+                        method=HttpMethods.GET,
+                        headers={"auth-token": {"equalTo": "abcdef"}},
+                        url_path="/v1/latest",
+                        query_parameters={"countryCode": {"equalTo": "GB"}},
+                    ),
+                    response=MappingResponse(
+                        status=200,
+                        body=json.dumps(
+                            {
+                                "_disclaimer": "This data is the exclusive property of Electricity Maps",
+                                "status": "ok",
+                                "countryCode": "GB",
+                                "data": {
+                                    "datetime": "2023-07-04T16:00:00.000Z",
+                                    "carbonIntensity": expected_carbon_intensity,
+                                    "fossilFuelPercentage": 37.16,
+                                },
+                                "units": {"carbonIntensity": "gCO2eq/kWh"},
+                            }
+                        ),
+                    ),
+                )
+
+                Mappings.create_mapping(mapping=current_intensity)
+                yield CO2SignalCarbonIntensityRepo(
+                    base_url=URL(base_url), api_key="abcdef", country_code="GB"
+                )
 
         return None
 
@@ -94,4 +132,10 @@ class TestCarbonIntensityRepository:
 
 def test_no_uk_carbon_intensity_data_raises() -> None:
     with pytest.raises(ValueError):
-        UkCarbonIntensityResponse.model_validate_json('{"data": []}')
+        NationalGridESOCarbonIntensityResponse.model_validate_json('{"data": []}')
+
+
+def test_auth_client_auth_flow() -> None:
+    request = Request(method="GET", url="https://example.com")
+    auth_req = next(CO2SignalAuthClient(api_key="abc").auth_flow(request))
+    assert auth_req.headers["auth-token"] == "abc"

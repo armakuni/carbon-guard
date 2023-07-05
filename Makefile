@@ -14,4 +14,5 @@ test:
 	poetry run python -m pytest tests
 
 integration:
-	specdown run README.md --add-path ${PWD}/tests/scripts --env REPOSITORY_MODE=file
+	specdown run README.md --add-path ${PWD}/tests/scripts --env REPOSITORY_MODE=file --env CO2_SIGNAL_API_KEY=$(shell cat .co2_api_key)
+

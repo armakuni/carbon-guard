@@ -16,34 +16,53 @@ poetry run carbon_guard --help
  Usage: carbon_guard [OPTIONS]                                                  
                                                                                 
 ╭─ Options ────────────────────────────────────────────────────────────────────╮
-│ *  --max-carbon-intensi…        INTEGER               Set the max carbon     │
-│                                                       intensity in           │
-│                                                       gCO2eq/kWh.            │
-│                                                       [env var:              │
-│                                                       MAX_CARBON_INTENSITY]  │
-│                                                       [default: None]        │
-│                                                       [required]             │
-│    --data-source                [file|uk-carbon-inte  Where to read carbon   │
-│                                 nsity]                intensity data from    │
-│                                                       [env var:              │
-│                                                       REPOSITORY_MODE]       │
-│                                                       [default:              │
-│                                                       uk-carbon-intensity]   │
-│    --from-file-carbon-i…        PATH                  File to read carbon    │
-│                                                       intensity from in file │
-│                                                       mode                   │
-│                                                       [env var:              │
-│                                                       FROM_FILE_CARBON_INTE… │
-│                                                       [default:              │
-│                                                       .carbon_intensity]     │
-│    --uk-carbon-intensit…        PARSE_URL             URL for the carbon     │
-│                                                       intensity API          │
-│                                                       [env var:              │
-│                                                       UK_CARBON_INTENSITY_A… │
-│                                                       [default:              │
-│                                                       https://api.carbonint… │
-│    --help                                             Show this message and  │
-│                                                       exit.                  │
+│ *  --max-carbon-intensi…        INTEGER                Set the max carbon    │
+│                                                        intensity in          │
+│                                                        gCO2eq/kWh.           │
+│                                                        [env var:             │
+│                                                        MAX_CARBON_INTENSITY] │
+│                                                        [default: None]       │
+│                                                        [required]            │
+│    --data-source                [file|national-grid-e  Where to read carbon  │
+│                                 so-carbon-intensity|c  intensity data from   │
+│                                 o2-signal]             [env var:             │
+│                                                        REPOSITORY_MODE]      │
+│                                                        [default:             │
+│                                                        national-grid-eso-ca… │
+│    --from-file-carbon-i…        PATH                   File to read carbon   │
+│                                                        intensity from in     │
+│                                                        file mode             │
+│                                                        [env var:             │
+│                                                        FROM_FILE_CARBON_INT… │
+│                                                        [default:             │
+│                                                        .carbon_intensity]    │
+│    --nation-grid-eso-ca…        PARSE_URL              URL for the National  │
+│                                                        Grid ESO Carbon       │
+│                                                        Intensity API         │
+│                                                        [env var:             │
+│                                                        NATIONAL_GRID_ESO_CA… │
+│                                                        [default:             │
+│                                                        https://api.carbonin… │
+│    --co2-signal-carbon-…        PARSE_URL              URL for the CO2       │
+│                                                        Signal api            │
+│                                                        [env var:             │
+│                                                        CO2_SIGNAL_API_BASE_… │
+│                                                        [default:             │
+│                                                        https://api.co2signa… │
+│    --co2-signal-api-key         TEXT                   Api key for the CO2   │
+│                                                        Signal api, required  │
+│                                                        in CO2 Signal mode    │
+│                                                        [env var:             │
+│                                                        CO2_SIGNAL_API_KEY]   │
+│                                                        [default: None]       │
+│    --co2-signal-country…        TEXT                   Country code to get   │
+│                                                        the carbon intensity  │
+│                                                        from CO2 Signal api   │
+│                                                        [env var:             │
+│                                                        CO2_SIGNAL_COUNTRY_C… │
+│                                                        [default: None]       │
+│    --help                                              Show this message and │
+│                                                        exit.                 │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 
 ```
@@ -55,36 +74,71 @@ based on gCO2eq/kWh.
 
 Comparing carbon levels with the expected outcome for high carbon intensity:
 
-```shell,script(name="carbon_check",  expected_exit_code=1)
+```shell,script(name="carbon_threshold_exceeded",  expected_exit_code=1)
 carbon_intensity_is 1000
 poetry run carbon_guard --max-carbon-intensity=999
 ```
 
-``` ,verify(script_name="carbon_check", stream=stdout)
+``` ,verify(script_name="carbon_threshold_exceeded", stream=stdout)
 Carbon levels exceed threshold, skipping.
 ```
 
 Comparing carbon levels with the expected outcome for low carbon intensity:
 
-```shell,script(name="carbon_check",  expected_exit_code=0)
+```shell,script(name="carbon_threshold_ok",  expected_exit_code=0)
 carbon_intensity_is 999
 poetry run carbon_guard --max-carbon-intensity=999
 ```
 
-``` ,verify(script_name="carbon_check", stream=stdout)
+``` ,verify(script_name="carbon_threshold_ok", stream=stdout)
 Carbon levels under threshold, proceeding.
 ```
 
 You may change the data source by specifying the `--data-source` flag.
+using the [national-grid-eso-carbon-intensity data source](https://carbonintensity.org.uk/):
+[**note**] this only supplies data for the united kingdom.
 
-```shell,script(name="carbon_check",  expected_exit_code=0)
-poetry run carbon_guard --data-source uk-carbon-intensity --max-carbon-intensity=100000
+```shell,script(name="national_grid_eso_carbon_threshold_ok",  expected_exit_code=0)
+poetry run carbon_guard --data-source national-grid-eso-carbon-intensity --max-carbon-intensity=100000
 ```
 
-``` ,verify(script_name="carbon_check", stream=stdout)
+``` ,verify(script_name="national_grid_eso_carbon_threshold_ok", stream=stdout)
 Carbon levels under threshold, proceeding.
 ```
 
+using the [co2-signal data source](https://www.co2signal.com/)
+```shell,script(name="co2-signal-carbon-threshold-ok",  expected_exit_code=0)
+# export CO2_SIGNAL_API_KEY=<your_api_key_here>
+poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
+```
+
+``` ,verify(script_name="co2-signal-carbon-threshold-ok", stream=stdout)
+Carbon levels under threshold, proceeding.
+```
+#### Errors
+
+
+if you don't provide a `co2-signal-country-code` the call will fail.
+```shell,script(name="co2-signal-no-country-code-error",  expected_exit_code=1)
+# export CO2_SIGNAL_API_KEY=<your_api_key_here>
+poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000
+```
+
+``` ,verify(script_name="co2-signal-no-country-code-error", stream=stdout)
+No country code provided to CO2 Signal Api.
+```
+
+if you don't provide a `co2-signal-api-key` the call will fail.
+```shell,script(name="co2-signal-no-api-key-error",  expected_exit_code=1)
+export CO2_SIGNAL_API_KEY=""
+poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
+```
+
+``` ,verify(script_name="co2-signal-no-api-key-error", stream=stdout)
+No API key found for CO2 Signal API.
+```
+
+### Adding to your pipelines
 You can also use it as a GitHub action
 
 ```yaml,skip()
