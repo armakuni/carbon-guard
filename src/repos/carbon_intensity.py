@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Generator, Protocol
 
 import httpx
-from httpx import URL, AsyncClient, Request
+from httpx import URL, AsyncClient, Request, Response
 from pydantic import BaseModel, field_validator
 
 
@@ -78,7 +78,7 @@ class CO2SignalCarbonIntensityRepo:
         )
         self._country_code = country_code
 
-    async def get_carbon_intensity(self):
+    async def get_carbon_intensity(self) -> int:
         response = await self._client.get(
             "/v1/latest", params={"countryCode": self._country_code}
         )
@@ -95,6 +95,6 @@ class CO2SignalAuthClient(httpx.Auth):
     def __init__(self, api_key: str):
         self._api_key = api_key
 
-    def auth_flow(self, request: Request) -> Generator[Request, None, None]:
+    def auth_flow(self, request: Request) -> Generator[Request, Response, None]:
         request.headers["auth-token"] = self._api_key
         yield request
