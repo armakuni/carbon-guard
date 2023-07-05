@@ -36,6 +36,13 @@ def main(
             help="Set the max carbon intensity in gCO2eq/kWh.",
         ),
     ],
+    advise_only: Annotated[
+        bool,
+        typer.Option(
+            envvar="ADVISE_ONLY",
+            help="Do not exit with an error if the carbon intensity is above the max carbon intensity.",
+        ),
+    ] = False,
     data_source: Annotated[
         DataSource,
         typer.Option(
@@ -84,6 +91,7 @@ def main(
 ) -> None:
     carbon_intensity(
         data_source,
+        advise_only,
         from_file_carbon_intensity_file_path,
         max_carbon_intensity,
         nation_grid_eso_carbon_intensity_api_base_url,
@@ -96,6 +104,7 @@ def main(
 @async_to_sync
 async def carbon_intensity(
     data_source: DataSource,
+    advise_only: bool,
     from_file_carbon_intensity_file_path: Path,
     max_carbon_intensity: int,
     national_grid_eso_carbon_intensity_api_base_url: URL,
@@ -129,7 +138,7 @@ async def carbon_intensity(
             )
     if await intensity_repo.get_carbon_intensity() > max_carbon_intensity:
         typer.echo("Carbon levels exceed threshold, skipping.")
-        raise typer.Exit(1)
+        raise typer.Exit(1 if not advise_only else 0)
     typer.echo("Carbon levels under threshold, proceeding.")
 
 
