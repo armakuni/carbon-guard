@@ -5,10 +5,19 @@ inputs:
     description: The max intensity in gCO2/kWh
     required: true
     default: 'true'
-  repository_mode:
-    description: Pattern to filter files by
+  data_source:
+    description: Data source for carbon intensity api
     required: false
-    default: uk-carbon-intensity
+    default: national-grid-eso-carbon-intensity
+  from_file_carbon_intensity_file_path:
+    description: A file to read the carbon intensity value from
+    required: false
+  co2_signal_api_key:
+    description: CO2 Signal API provided key
+    required: false
+  co2_signal_country_code:
+    description: Country Code for area of interest for CO2 Signal Api
+    required: false
 runs:
   using: "composite"
   steps:
@@ -25,7 +34,10 @@ runs:
       shell: bash
       env:
         MAX_CARBON_INTENSITY: ${{ inputs.max_carbon_intensity }}
-        REPOSITORY_MODE: ${{ inputs.repository_mode }}
+        DATA_SOURCE: ${{ inputs.data_source }}
+        FROM_FILE_CARBON_INTENSITY_FILE_PATH: ${{ inputs.from_file_carbon_intensity_file_path }}
+        CO2_SIGNAL_API_KEY: ${{ inputs.co2_signal_api_key }}
+        CO2_SIGNAL_COUNTRY_CODE: ${{ inputs.co2_signal_country_code }}
 branding:
   icon: cloud-lightning
   color: green

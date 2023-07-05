@@ -32,53 +32,53 @@ def main(
     max_carbon_intensity: Annotated[
         int,
         typer.Option(
-            help="Set the max carbon intensity in gCO2eq/kWh.",
             envvar="MAX_CARBON_INTENSITY",
+            help="Set the max carbon intensity in gCO2eq/kWh.",
         ),
     ],
     data_source: Annotated[
         DataSource,
         typer.Option(
             case_sensitive=False,
+            envvar="DATA_SOURCE",
             help="Where to read carbon intensity data from",
-            envvar="REPOSITORY_MODE",
         ),
     ] = DataSource.NATIONAL_GRID_ESO_CARBON_INTENSITY,
     from_file_carbon_intensity_file_path: Annotated[
         Path,
         typer.Option(
-            help="File to read carbon intensity from in file mode",
             envvar="FROM_FILE_CARBON_INTENSITY_FILE_PATH",
+            help="File to read carbon intensity from in file mode",
         ),
     ] = Path(FILE_FOR_INTENSITY_READING),
     nation_grid_eso_carbon_intensity_api_base_url: Annotated[
         URL,
         typer.Option(
-            help="URL for the National Grid ESO Carbon Intensity API",
             envvar="NATIONAL_GRID_ESO_CARBON_INTENSITY_API_BASE_URL",
+            help="URL for the National Grid ESO Carbon Intensity API",
             parser=parse_url,
         ),
     ] = NATIONAL_GRID_ESO_CARBON_INTENSITY_API_BASE_URL,
     co2_signal_carbon_intensity_api_base_url: Annotated[
         URL,
         typer.Option(
-            help="URL for the CO2 Signal api",
             envvar="CO2_SIGNAL_API_BASE_URL",
+            help="URL for the CO2 Signal api",
             parser=parse_url,
         ),
     ] = CO2_SIGNAL_API_BASE_URL,
     co2_signal_api_key: Annotated[
         Optional[str],
         typer.Option(
-            help="Api key for the CO2 Signal api, required in CO2 Signal mode",
             envvar="CO2_SIGNAL_API_KEY",
+            help="Api key for the CO2 Signal api, required in CO2 Signal mode",
         ),
     ] = None,
     co2_signal_country_code: Annotated[
         Optional[str],
         typer.Option(
-            help="Country code to get the carbon intensity from CO2 Signal api",
             envvar="CO2_SIGNAL_COUNTRY_CODE",
+            help="Country code to get the carbon intensity from CO2 Signal api",
         ),
     ] = None,
 ) -> None:
