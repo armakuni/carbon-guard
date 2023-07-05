@@ -58,8 +58,12 @@ jobs:
       run: poetry install --no-interaction --no-root
     - run: make lint
     - run: make test
-    - run: make integration
-
+    - run: |
+        echo "$CO2_SIGNAL_API_KEY" > .co2_api_key
+        make integration
+      env:
+        CO2_SIGNAL_API_KEY: ${{secrets.CO2_SIGNAL_API_KEY}}
+      if: github.ref == 'refs/heads/main'
   dependabot:
     needs: [ validate-pipeline, validate-action, validate-python ]
     name: Dependabot Automerge
