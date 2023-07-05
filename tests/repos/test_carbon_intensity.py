@@ -45,7 +45,7 @@ class TestCarbonIntensityRepository:
                 yield FromFileCarbonIntensityRepo(file_path=Path(file.name))
 
         if request.param == "uk-carbon-intensity":
-            with WireMockServer() as wm:
+            with WireMockServer(max_attempts=100) as wm:
                 base_url = f"http://localhost:{wm.port}"
                 Config.base_url = f"{base_url}/__admin"
 
@@ -79,7 +79,7 @@ class TestCarbonIntensityRepository:
                 yield NationalGridESOCarbonIntensityApiRepo(base_url=URL(base_url))
 
         if request.param == "co2-signal":
-            with WireMockServer() as wm:
+            with WireMockServer(max_attempts=100) as wm:
                 base_url = f"http://localhost:{wm.port}"
                 Config.base_url = f"{base_url}/__admin"
 
