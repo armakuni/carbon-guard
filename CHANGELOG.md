@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.6.0](https://github.com/armakuni/carbon-guard/compare/v0.5.0..v0.6.0) - 2023-07-05
+#### Bug Fixes
+- Print the threshold and current value to make adjustments easier - ([c16c1bd](https://github.com/armakuni/carbon-guard/commit/c16c1bd74009663744f80007935d639cc8f4b2e4)) - Billie Thompson
+#### Documentation
+- updated docs to include data source specific information - ([edd4c26](https://github.com/armakuni/carbon-guard/commit/edd4c26bd45f218e38a30288cb3191341175de23)) - Adam Gardner
+#### Features
+- Add the ability to skip exiting with failure when above threshold - ([349cbc0](https://github.com/armakuni/carbon-guard/commit/349cbc0b3cc3c10bfee7041062b14f069a2116cc)) - Billie Thompson
+
+- - -
+
 ## [v0.4.1](https://github.com/armakuni/is-it-green-yet/compare/v0.4.0..v0.4.1) - 2023-07-04
 #### Bug Fixes
 - Simplify composite action - ([5ada25e](https://github.com/armakuni/is-it-green-yet/commit/5ada25e7cad97f1ac9698948032f7053f78ae4e0)) - Billie Thompson
