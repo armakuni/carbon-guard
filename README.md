@@ -1,17 +1,17 @@
 # Carbon Guard 👮
 
-We are taking the workload to carbon guard (to carbon guard)  to carbon guard
-
-![image](https://github.com/armakuni/carbon-guard/assets/54274482/a4791a67-ac7b-4e7a-a5e4-bf1ceb8b3a9f)
-
+Carbon Guard is a unique and environmentally conscious GitHub Action & CLI App
+designed to help reduce the carbon footprint of your CI/CD pipelines. It
+works by monitoring real-time carbon intensity data and preventing
+pipelines from running when the carbon intensity is high.
 
 ## Usage
 
-```shell,script(name="usage", expected_exit_code=0)
+```shell,script(name="usage",expected_exit_code=0)
 poetry run carbon_guard --help
 ```
 
-``` ,verify(script_name="usage", stream=stdout)
+``` ,verify(script_name="usage",stream=stdout)
                                                                                 
  Usage: carbon_guard [OPTIONS]                                                  
                                                                                 
