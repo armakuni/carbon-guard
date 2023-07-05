@@ -13,7 +13,30 @@ poetry run carbon_guard --help
 
 ``` ,verify(script_name="usage",stream=stdout)
                                                                                 
- Usage: carbon_guard [OPTIONS]                                                  
+ Usage: carbon_guard [OPTIONS] COMMAND [ARGS]...                                
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --install-completion          Install completion for the current shell.      │
+│ --show-completion             Show completion for the current shell, to copy │
+│                               it or customize the installation.              │
+│ --help                        Show this message and exit.                    │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────╮
+│ check      Check the current carbon intensity.                               │
+│ shedule    Check the best time to run a task given a time period.            │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+```
+
+```shell,script(name="usage-check",expected_exit_code=0)
+poetry run carbon_guard check --help
+```
+
+``` ,verify(script_name="usage-check",stream=stdout)
+                                                                                
+ Usage: carbon_guard check [OPTIONS]                                            
+                                                                                
+ Check the current carbon intensity.                                            
                                                                                 
 ╭─ Options ────────────────────────────────────────────────────────────────────╮
 │ *  --max-carbon-in…                       INTEGER           Set the max      │
@@ -92,7 +115,7 @@ Comparing carbon levels with the expected outcome for high carbon intensity:
 
 ```shell,script(name="carbon_threshold_exceeded",  expected_exit_code=1)
 carbon_intensity_is 1000
-poetry run carbon_guard --max-carbon-intensity=999
+poetry run carbon_guard check --max-carbon-intensity=999
 ```
 
 ``` ,verify(script_name="carbon_threshold_exceeded", stream=stdout)
@@ -103,14 +126,14 @@ You may also return a successful exit code even on high carbon intensity by pass
 
 ```shell,script(name="carbon_threshold_exceeded_and_skipped",  expected_exit_code=0)
 carbon_intensity_is 1000
-poetry run carbon_guard --max-carbon-intensity=999 --advise-only
+poetry run carbon_guard check --max-carbon-intensity=999 --advise-only
 ```
 
 Comparing carbon levels with the expected outcome for low carbon intensity:
 
 ```shell,script(name="carbon_threshold_ok",  expected_exit_code=0)
 carbon_intensity_is 999
-poetry run carbon_guard --max-carbon-intensity=999
+poetry run carbon_guard check --max-carbon-intensity=999
 ```
 
 ``` ,verify(script_name="carbon_threshold_ok", stream=stdout)
@@ -130,7 +153,7 @@ Using the [national-grid-eso-carbon-intensity data source](https://carbonintensi
 [**note**] this only supplies data for the United Kingdom.
 
 ```shell,script(name="national_grid_eso_carbon_threshold_ok",  expected_exit_code=0)
-poetry run carbon_guard --data-source national-grid-eso-carbon-intensity --max-carbon-intensity=100000
+poetry run carbon_guard check --data-source national-grid-eso-carbon-intensity --max-carbon-intensity=100000
 ```
 
 ``` ,skip()
@@ -144,7 +167,7 @@ Using the [co2-signal data source](https://www.co2signal.com/)
 
 ```shell,script(name="co2-signal-carbon-threshold-ok",  expected_exit_code=0)
 # export CO2_SIGNAL_API_KEY=<your_api_key_here>
-poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
+poetry run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
 ```
 
 ``` ,skip()
@@ -157,7 +180,7 @@ if you don't provide a `co2-signal-country-code` the call will fail.
 
 ```shell,script(name="co2-signal-no-country-code-error",  expected_exit_code=1)
 # export CO2_SIGNAL_API_KEY=<your_api_key_here>
-poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000
+poetry run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000
 ```
 
 ``` ,verify(script_name="co2-signal-no-country-code-error", stream=stdout)
@@ -168,7 +191,7 @@ if you don't provide a `co2-signal-api-key` the call will fail.
 
 ```shell,script(name="co2-signal-no-api-key-error",  expected_exit_code=1)
 export CO2_SIGNAL_API_KEY=""
-poetry run carbon_guard --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
+poetry run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
 ```
 
 ``` ,verify(script_name="co2-signal-no-api-key-error", stream=stdout)
