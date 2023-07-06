@@ -208,6 +208,8 @@ poetry run carbon_guard check --data-source national-grid-eso-carbon-intensity -
 Carbon intensity is 98 gCO2eq/kWh, which is below or equal to the max of 100000 gCO2eq/kWh
 ```
 
+You can use this data provider to schedule find the forecasted lowest carbon intensity within a given time period.
+
 ```shell,script(name="national_grid_eso_carbon_threshold_ok",  expected_exit_code=0)
 poetry run carbon_guard schedule --data-source national-grid-eso-carbon-intensity --within "1 hour"
 ```
