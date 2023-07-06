@@ -178,3 +178,5 @@ jobs:
         run: poetry build
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip_existing: true
