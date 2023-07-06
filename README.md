@@ -294,6 +294,6 @@ flag.
 You can run in other pipelines as a command line tool
 
 ```shell, skip()
-pip install git+https://github.com/armakuni/carbon-guard.git
+pip install carbon-guard
 carbon_guard --help
 ```
