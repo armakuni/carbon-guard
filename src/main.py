@@ -8,12 +8,12 @@ from typing_extensions import Annotated
 
 from src.cli.async_helper import async_to_sync
 from src.cli.parsers import parse_url
-from src.repos.carbon_intensity import (
-    CarbonIntensityRepo,
-    CO2SignalCarbonIntensityRepo,
-    FromFileCarbonIntensityRepo,
+from src.repos.carbon_intensity.co2_signal import CO2SignalCarbonIntensityRepo
+from src.repos.carbon_intensity.file import FromFileCarbonIntensityRepo
+from src.repos.carbon_intensity.national_grid_eso import (
     NationalGridESOCarbonIntensityApiRepo,
 )
+from src.repos.carbon_intensity.protocol import CarbonIntensityRepo
 
 NATIONAL_GRID_ESO_CARBON_INTENSITY_API_BASE_URL: URL = URL(
     "https://api.carbonintensity.org.uk"

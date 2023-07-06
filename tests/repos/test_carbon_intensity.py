@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Generator
 
 import pytest
-from httpx import URL, Request
+from httpx import URL
 from pytest import FixtureRequest
 from wiremock.constants import Config
 from wiremock.resources.mappings import (
@@ -16,15 +16,13 @@ from wiremock.resources.mappings import (
 from wiremock.resources.mappings.resource import Mappings
 from wiremock.server import WireMockServer
 
-from src.repos.carbon_intensity import (
-    CarbonIntensityRepo,
-    CO2SignalAuthClient,
-    CO2SignalCarbonIntensityRepo,
-    FromFileCarbonIntensityRepo,
-    InMemoryCarbonIntensityRepo,
+from src.repos.carbon_intensity.co2_signal import CO2SignalCarbonIntensityRepo
+from src.repos.carbon_intensity.file import FromFileCarbonIntensityRepo
+from src.repos.carbon_intensity.in_memory import InMemoryCarbonIntensityRepo
+from src.repos.carbon_intensity.national_grid_eso import (
     NationalGridESOCarbonIntensityApiRepo,
-    NationalGridESOCarbonIntensityResponse,
 )
+from src.repos.carbon_intensity.protocol import CarbonIntensityRepo
 
 
 class TestCarbonIntensityRepository:
@@ -128,14 +126,3 @@ class TestCarbonIntensityRepository:
             await carbon_intensity_repo.get_carbon_intensity()
             == expected_carbon_intensity
         )
-
-
-def test_no_uk_carbon_intensity_data_raises() -> None:
-    with pytest.raises(ValueError):
-        NationalGridESOCarbonIntensityResponse.model_validate_json('{"data": []}')
-
-
-def test_auth_client_auth_flow() -> None:
-    request = Request(method="GET", url="https://example.com")
-    auth_req = next(CO2SignalAuthClient(api_key="abc").auth_flow(request))
-    assert auth_req.headers["auth-token"] == "abc"
