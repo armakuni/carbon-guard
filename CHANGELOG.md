@@ -2,6 +2,21 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.7.0](https://github.com/armakuni/carbon-guard/compare/v0.6.0..v0.7.0) - 2023-07-06
+#### Build system
+- **(deps)** Bump pydantic from 2.0.1 to 2.0.2 - ([8f3f3d9](https://github.com/armakuni/carbon-guard/commit/8f3f3d9b180c58dc170ae5e64af121aac00cc2fc)) - dependabot[bot]
+#### Continuous Integration
+- Skip if we have already done the release - ([36f3fcb](https://github.com/armakuni/carbon-guard/commit/36f3fcbc9053eb260bc947ce9d34e3687f53d7d3)) - Billie Thompson
+- Add pypi release step - ([092834b](https://github.com/armakuni/carbon-guard/commit/092834baac115d9c58ed13faf646e320ad385d82)) - Billie Thompson
+#### Documentation
+- Add license - ([eb51a7b](https://github.com/armakuni/carbon-guard/commit/eb51a7b886e175df4472e332a1ac2c571dae5381)) - Billie Thompson
+#### Features
+- Add a best time to run command - ([8ccb9cb](https://github.com/armakuni/carbon-guard/commit/8ccb9cbe8745d43a275ed42c4dc1a8e5bf17faf2)) - Billie Thompson
+#### Refactoring
+- Split the repositories somewhat - ([6bd4126](https://github.com/armakuni/carbon-guard/commit/6bd4126f29aa4b202132edd6bbf636cb4ed4ddb3)) - Billie Thompson
+
+- - -
+
 ## [v0.4.1](https://github.com/armakuni/is-it-green-yet/compare/v0.4.0..v0.4.1) - 2023-07-04
 #### Bug Fixes
 - Simplify composite action - ([5ada25e](https://github.com/armakuni/is-it-green-yet/commit/5ada25e7cad97f1ac9698948032f7053f78ae4e0)) - Billie Thompson
