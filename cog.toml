@@ -11,6 +11,7 @@ pre_bump_hooks = [
 ]
 post_bump_hooks = [
     "git push origin v{{version}}",
+    "git push",
 ]
 
 [commit_types]
