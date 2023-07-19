@@ -1255,18 +1255,21 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "wiremock"
-version = "2.5.0"
+version = "2.6.0"
 description = "Wiremock Admin API Client"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "wiremock-2.5.0-py3-none-any.whl", hash = "sha256:5348d2d08845610e2892a4f6226383c63d3244d6623542b18c70577ea90e49a5"},
-    {file = "wiremock-2.5.0.tar.gz", hash = "sha256:47af4b3ab320f393e364d9dee42f99ac7d070536171b9a87729d4c86e92dfafc"},
+    {file = "wiremock-2.6.0-py3-none-any.whl", hash = "sha256:3ed0ac030844f9560b4bdfd157a8bb5ef0bdbd8d60c6e68097762ed61aeec7af"},
+    {file = "wiremock-2.6.0.tar.gz", hash = "sha256:ea0f9736a0d0cd27fbd31ccac4964ce796a8b61c1e6bcb76119ea31e2b935fa5"},
 ]
 
 [package.dependencies]
 importlib-resources = ">=5.12.0,<6.0.0"
 requests = ">=2.20.0,<3.0.0"
+
+[package.extras]
+testing = ["docker (>=6.1.0,<7.0.0)", "testcontainers (>=3.7.1,<4.0.0)"]
 
 [metadata]
 lock-version = "2.0"
