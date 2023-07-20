@@ -1188,13 +1188,13 @@ test = ["black (>=22.3.0,<23.0.0)", "coverage (>=6.2,<7.0)", "isort (>=5.0.6,<6.
 
 [[package]]
 name = "types-dateparser"
-version = "1.1.4.9"
+version = "1.1.4.10"
 description = "Typing stubs for dateparser"
 optional = false
 python-versions = "*"
 files = [
-    {file = "types-dateparser-1.1.4.9.tar.gz", hash = "sha256:506668f024c2136a44e9046ee18dd4279a55df1be5dc55e5c29ab07643a2e18a"},
-    {file = "types_dateparser-1.1.4.9-py3-none-any.whl", hash = "sha256:6539e49032151a8445092109f93e61f51b2082a9f295691df13e073c6abf9137"},
+    {file = "types-dateparser-1.1.4.10.tar.gz", hash = "sha256:f9f147147a897ecb99491f59772ab1be1b7a0842fbc22e85ca37c6995b563b52"},
+    {file = "types_dateparser-1.1.4.10-py3-none-any.whl", hash = "sha256:b85c664b349412ef0e09afd56c3c554a1d2fc206e45f1222c1001d23cb2fb66d"},
 ]
 
 [[package]]
