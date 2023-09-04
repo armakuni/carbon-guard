@@ -12,7 +12,7 @@ jobs:
   validate-pipeline:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Check workflow files
         run: |
           bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
@@ -22,7 +22,7 @@ jobs:
   validate-action:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./
         with:
           max_carbon_intensity: 10000
@@ -33,7 +33,7 @@ jobs:
         shell: bash
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: specdown/setup-specdown-action@v0.2.8
     - name: Set up python ${{ env.PYTHON_VERSION }}
       id: setup-python
@@ -92,7 +92,7 @@ jobs:
     outputs:
       version: ${{ steps.release.outputs.version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -145,7 +145,7 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ needs.release.outputs.version }}
       - name: Set up python ${{ env.PYTHON_VERSION }}
