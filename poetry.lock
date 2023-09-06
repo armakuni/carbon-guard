@@ -1260,13 +1260,13 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "wiremock"
-version = "2.6.0"
+version = "2.6.1"
 description = "Wiremock Admin API Client"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "wiremock-2.6.0-py3-none-any.whl", hash = "sha256:3ed0ac030844f9560b4bdfd157a8bb5ef0bdbd8d60c6e68097762ed61aeec7af"},
-    {file = "wiremock-2.6.0.tar.gz", hash = "sha256:ea0f9736a0d0cd27fbd31ccac4964ce796a8b61c1e6bcb76119ea31e2b935fa5"},
+    {file = "wiremock-2.6.1-py3-none-any.whl", hash = "sha256:417a803b0bba3ab6240410aedb4de15a32581fb29b1310b05289b4aa1a7c9ffd"},
+    {file = "wiremock-2.6.1.tar.gz", hash = "sha256:89b64d763a68a1808274aa4daf802f7ce3f9bff2a18ac6bf8923c997a21d67c1"},
 ]
 
 [package.dependencies]
