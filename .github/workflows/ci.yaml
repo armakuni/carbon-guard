@@ -10,14 +10,7 @@ env:
 
 jobs:
   validate-pipeline:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check workflow files
-        run: |
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-          ./actionlint -color
-        shell: bash
+    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@v0.10.4
 
   validate-action:
     runs-on: ubuntu-latest
