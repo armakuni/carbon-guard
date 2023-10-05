@@ -1,0 +1,16 @@
+pull_request_rules:
+  - name: "Automatic merge when CI passes"
+    conditions:
+      - author=dependabot[bot]
+      - check-success=all-tests-succeeded
+    actions:
+      queue:
+        method: merge
+
+queue_rules:
+  - name: dep-update
+    batch_size: 10
+    batch_max_wait_time: 30 min
+    queue_conditions:
+      - author=dependabot[bot]
+      - check-success=all-tests-succeeded
