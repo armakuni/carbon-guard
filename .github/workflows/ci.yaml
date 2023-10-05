@@ -60,25 +60,16 @@ jobs:
       env:
         CO2_SIGNAL_API_KEY: ${{secrets.CO2_SIGNAL_API_KEY}}
       if: github.ref == 'refs/heads/main'
-  dependabot:
-    needs: [ validate-pipeline, validate-action, validate-python ]
-    name: Dependabot Automerge
-    permissions:
-      contents: write
-      pull-requests: write
-    runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' && ( github.head_ref || github.ref_name ) != 'main' }}
-    steps:
-      - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --rebase "$PR_URL" || echo "Merge conflict caused failure, waiting for dependabot to rebase"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+  all-tests-succeeded:
+    needs: [ validate-pipeline, validate-action, validate-python ]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All tests succeeded"
   release:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    needs: [ validate-pipeline, validate-action, validate-python ]
+    needs: [ all-tests-succeeded ]
     name: Release
     permissions:
       contents: write
