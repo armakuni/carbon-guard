@@ -60,6 +60,12 @@ jobs:
       env:
         CO2_SIGNAL_API_KEY: ${{secrets.CO2_SIGNAL_API_KEY}}
       if: github.ref == 'refs/heads/main'
+    - name: Spot vunerable dependencies
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        exit-code: '1'
+        scan-ref: .
 
   all-tests-succeeded:
     needs: [ validate-pipeline, validate-action, validate-python ]
