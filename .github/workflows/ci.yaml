@@ -34,16 +34,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
     - uses: armakuni/github-actions/setup-poetry@v0.17.6
-    - name: Load cached venv
-      id: cached-poetry-dependencies
-      uses: actions/cache@v3
-      with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-        restore-keys: |
-          venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-
     - name: Install dependencies
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       shell: bash
       run: poetry install --no-interaction --no-root
     - run: make lint
