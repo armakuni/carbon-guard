@@ -10,7 +10,7 @@ env:
 
 jobs:
   validate-pipeline:
-    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@v0.16.10
+    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@v0.17.6
 
   validate-action:
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-    - uses: armakuni/github-actions/setup-poetry@v0.17.4
+    - uses: armakuni/github-actions/setup-poetry@v0.17.6
     - name: Load cached venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
