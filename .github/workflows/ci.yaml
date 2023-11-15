@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: specdown/setup-specdown-action@v0.2.27
+    - uses: specdown/setup-specdown-action@v0.2.28
     - name: Set up python ${{ env.PYTHON_VERSION }}
       id: setup-python
       uses: actions/setup-python@v4
