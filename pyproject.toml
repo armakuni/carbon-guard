@@ -25,7 +25,7 @@ ruff = ">=0.0.277,<0.1.7"
 mypy = "^1.4.0"
 pytest = "^7.3.2"
 wiremock = "^2.5.0"
-pytest-asyncio = "^0.21.0"
+pytest-asyncio = ">=0.21,<0.24"
 pytest-freezegun = "^0.4.2"
 
 
