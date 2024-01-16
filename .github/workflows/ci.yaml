@@ -98,7 +98,7 @@ jobs:
       - name: Cocogitto release
         id: release
         continue-on-error: true
-        uses: oknozor/cocogitto-action@v3.5
+        uses: oknozor/cocogitto-action@v3.6
         with:
           release: true
       - name: Generate Changelog
