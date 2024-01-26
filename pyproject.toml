@@ -19,7 +19,7 @@ types-dateparser = "^1.1.4.9"
 
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
+black = ">=23.3,<25.0"
 isort = "^5.12.0"
 ruff = ">=0.0.277,<0.1.15"
 mypy = "^1.4.0"
