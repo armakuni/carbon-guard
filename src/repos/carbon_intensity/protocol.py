@@ -13,8 +13,7 @@ from src.repos.carbon_intensity.national_grid_eso import (
 
 
 class CurrentCarbonIntensityRepo(Protocol):
-    async def get_carbon_intensity(self) -> int:
-        ...
+    async def get_carbon_intensity(self) -> int: ...
 
 
 class CurrentIntensityDataSource(StrEnum):
@@ -26,8 +25,7 @@ class CurrentIntensityDataSource(StrEnum):
 class ForecastLowIntensityDateRepo(Protocol):
     async def get_best_time_to_run_within_period(
         self, within: dt.timedelta
-    ) -> dt.datetime:
-        ...
+    ) -> dt.datetime: ...
 
 
 class ForecastLowIntensityDateDataSource(StrEnum):
