@@ -52,9 +52,9 @@ module = [
 ignore_missing_imports = true
 
 [tool.ruff]
-select = ["R", "A", "B", "S", "F"]
+lint.select = ["R", "A", "B", "S", "F"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["S101"]
 
 [tool.poetry.scripts]
