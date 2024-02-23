@@ -10,7 +10,7 @@ env:
 
 jobs:
   validate-pipeline:
-    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@v0.19.1
+    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@v0.19.3
 
   validate-action:
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-    - uses: armakuni/github-actions/setup-poetry@v0.19.1
+    - uses: armakuni/github-actions/setup-poetry@v0.19.3
     - name: Install dependencies
       shell: bash
       run: poetry install --no-interaction --no-root
