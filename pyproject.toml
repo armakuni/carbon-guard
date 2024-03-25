@@ -11,7 +11,7 @@ packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-typer = {extras = ["all"], version = "^0.9.0"}
+typer = {extras = ["all"], version = ">=0.9,<0.11"}
 httpx = {extras = ["brotli", "http2"], version = ">=0.24.1,<0.28.0"}
 pydantic = {extras = ["dotenv"], version = "^2.0"}
 dateparser = "^1.1.8"
