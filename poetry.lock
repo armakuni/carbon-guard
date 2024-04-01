@@ -1163,13 +1163,13 @@ all = ["colorama (>=0.4.3,<0.5.0)", "rich (>=10.11.0,<14.0.0)", "shellingham (>=
 
 [[package]]
 name = "types-dateparser"
-version = "1.1.4.20240106"
+version = "1.1.4.20240331"
 description = "Typing stubs for dateparser"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "types-dateparser-1.1.4.20240106.tar.gz", hash = "sha256:155a1bd64111d9f2a03146d56f495f30ac58fdced646773144a68dca870a329c"},
-    {file = "types_dateparser-1.1.4.20240106-py3-none-any.whl", hash = "sha256:4abc6a4dc6cf8986f513672dce34057e609e6c857afbaba2fd8e33e1082efe4d"},
+    {file = "types-dateparser-1.1.4.20240331.tar.gz", hash = "sha256:db33c700c39384fa52e8f62e281323f4e9c312cfcf01aec09d990198511c2bfd"},
+    {file = "types_dateparser-1.1.4.20240331-py3-none-any.whl", hash = "sha256:97e51c0ac99a4d0157cd9bb79d83d11431d2004462dbc1a97fd586d64384ab1e"},
 ]
 
 [[package]]
