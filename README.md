@@ -23,8 +23,8 @@ poetry run carbon_guard --help
 │ --help                        Show this message and exit.                    │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ───────────────────────────────────────────────────────────────────╮
-│ check            Check the current carbon intensity.                         │
-│ schedule         Find the lowest carbon time.                                │
+│ check      Check the current carbon intensity.                               │
+│ schedule   Find the lowest carbon time.                                      │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 
 ```
