@@ -36,7 +36,7 @@ jobs:
     - uses: armakuni/github-actions/setup-poetry@v0.19.3
     - name: Install dependencies
       shell: bash
-      run: poetry install --no-interaction --no-root
+      run: poetry install --no-interaction
     - run: make lint
     - run: make test
     - run: |
