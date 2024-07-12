@@ -1,7 +1,7 @@
 import datetime as dt
 from urllib.parse import quote
 
-from httpx import URL, AsyncClient
+from httpx import URL, AsyncClient, Timeout
 from pydantic import BaseModel, Field
 
 
@@ -21,7 +21,7 @@ class NationalGridESOCarbonIntensityResponse(BaseModel):
 
 class NationalGridESOCarbonIntensityApiRepo:
     def __init__(self, base_url: URL):
-        self._client = AsyncClient(base_url=base_url, http2=True)
+        self._client = AsyncClient(base_url=base_url, http2=True, timeout=Timeout(5.0))
 
     async def get_carbon_intensity(self) -> int:
         response = await self._client.get("/intensity")
