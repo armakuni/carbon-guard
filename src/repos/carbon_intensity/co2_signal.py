@@ -1,7 +1,7 @@
 from typing import Generator
 
 import httpx
-from httpx import URL, AsyncClient, Request, Response
+from httpx import URL, AsyncClient, Request, Response, Timeout
 from pydantic import BaseModel
 
 
@@ -16,7 +16,10 @@ class CO2SignalCarbonIntensityResponse(BaseModel):
 class CO2SignalCarbonIntensityRepo:
     def __init__(self, base_url: URL, api_key: str, country_code: str):
         self._client = AsyncClient(
-            base_url=base_url, http2=True, auth=CO2SignalAuthClient(api_key=api_key)
+            base_url=base_url,
+            http2=True,
+            auth=CO2SignalAuthClient(api_key=api_key),
+            timeout=Timeout(5.0),
         )
         self._country_code = country_code
 
