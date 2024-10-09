@@ -6,7 +6,7 @@ branch_whitelist = [
   "release/**"
 ]
 pre_bump_hooks = [
-    "uv version {{version}}",
+    "uvx --from=toml-cli toml set --toml-path=pyproject.toml project.version {{version}}",
     "uv lock --no-upgrade",
 ]
 post_bump_hooks = [
