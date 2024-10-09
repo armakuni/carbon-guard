@@ -35,7 +35,7 @@ class TestCarbonIntensityRepository:
         expected_carbon_intensity: int,
         expected_run_time: dt.datetime,
     ) -> Generator[CurrentCarbonIntensityRepo, None, None]:
-        now = dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+        now = dt.datetime.now(dt.UTC)
 
         intensities: list[tuple[dt.datetime, int]] = [
             (now, expected_carbon_intensity),
@@ -145,9 +145,7 @@ class TestCarbonIntensityRepository:
 
     @pytest.fixture()
     def expected_run_time(self) -> dt.datetime:
-        return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc) + dt.timedelta(
-            days=2
-        )
+        return dt.datetime.now(dt.UTC) + dt.timedelta(days=2)
 
     @pytest.mark.asyncio
     async def test_gives_me_a_carbon_intensity(

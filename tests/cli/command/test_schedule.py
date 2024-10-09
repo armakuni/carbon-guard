@@ -7,7 +7,7 @@ from src.repos.carbon_intensity.in_memory import InMemoryCarbonIntensityRepo
 
 
 def test_schedule(capsys: CaptureFixture[str]) -> None:
-    now = dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+    now = dt.datetime.now(dt.UTC)
     tomorrow = now + dt.timedelta(days=1)
     overmorrow = now + dt.timedelta(days=2)
     day_after_overmorrow = now + dt.timedelta(days=3)

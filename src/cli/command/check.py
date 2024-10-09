@@ -3,12 +3,8 @@ import typer
 from src.cli.async_helper import async_to_sync
 from src.repos.carbon_intensity.protocol import CurrentCarbonIntensityRepo
 
-SUCCESS_TEMPLATE: str = (
-    "Carbon intensity is {carbon_intensity} gCO2eq/kWh, which is below or equal to the max of {max_carbon_intensity} gCO2eq/kWh"
-)
-FAILURE_TEMPLATE: str = (
-    "Carbon intensity is {carbon_intensity} gCO2eq/kWh, which is above the max of {max_carbon_intensity} gCO2eq/kWh"
-)
+SUCCESS_TEMPLATE: str = "Carbon intensity is {carbon_intensity} gCO2eq/kWh, which is below or equal to the max of {max_carbon_intensity} gCO2eq/kWh"
+FAILURE_TEMPLATE: str = "Carbon intensity is {carbon_intensity} gCO2eq/kWh, which is above the max of {max_carbon_intensity} gCO2eq/kWh"
 
 
 @async_to_sync

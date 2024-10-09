@@ -41,7 +41,7 @@ class NationalGridESOCarbonIntensityApiRepo:
     async def get_best_time_to_run_within_period(
         self, within: dt.timedelta
     ) -> dt.datetime:
-        utcnow = dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+        utcnow = dt.datetime.now(dt.UTC)
         start_time_escaped = quote(
             utcnow.isoformat(timespec="minutes").replace("+00:00", "Z"), safe=":"
         )

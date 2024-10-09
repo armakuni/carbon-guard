@@ -7,7 +7,7 @@ class InMemoryCarbonIntensityRepo:
 
     async def get_carbon_intensity(self) -> int:
         intensity = self._carbon_intensity
-        utcnow = dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+        utcnow = dt.datetime.now(dt.UTC)
 
         intensity_in_present = filter(lambda x: x[0] <= utcnow, intensity)
         max_date = max(intensity_in_present, key=lambda x: x[0])
@@ -18,7 +18,7 @@ class InMemoryCarbonIntensityRepo:
         self, within: dt.timedelta
     ) -> dt.datetime:
         intensity = self._carbon_intensity
-        utcnow = dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+        utcnow = dt.datetime.now(dt.UTC)
 
         intensity_in_future = filter(lambda x: x[0] > utcnow, intensity)
         intensity_within_duratation = filter(

@@ -1,8 +1,7 @@
 import datetime as dt
-
 import pytest
 from httpx import URL
-
+from time_machine import Coordinates
 from src.cli.parsers import http_or_https_url, human_readable_duration
 
 
@@ -16,9 +15,8 @@ class TestHttpOrHttpsUrl:
 
 
 class TestHumanReadableDuration:
-    @pytest.mark.freeze_time
-    def test_parsing_duration(self) -> None:
-        utcnow = dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+    def test_parsing_duration(self, time_machine: Coordinates) -> None:
+        utcnow = dt.datetime.now(dt.UTC)
         actual = human_readable_duration("2 weeks")
 
         assert utcnow + actual == utcnow + dt.timedelta(days=14)

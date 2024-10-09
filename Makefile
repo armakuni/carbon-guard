@@ -1,17 +1,15 @@
 format:
-	poetry run python -m ruff check . --fix
-	poetry run python -m isort .
-	poetry run python -m black . 
+	uv run ruff check . --fix
+	uv run ruff format .
 
 
 lint:
-	poetry run python -m ruff check .
-	poetry run python -m isort . --check
-	poetry run python -m black . --check
-	poetry run python -m mypy .
+	uv run ruff check .
+	uv run ruff format . --check
+	uv run mypy .
 
 test:
-	poetry run python -m pytest tests
+	uv run pytest tests
 
 integration:
 	specdown run README.md --add-path ${PWD}/tests/scripts --env DATA_SOURCE=file --env CO2_SIGNAL_API_KEY=$(shell cat .co2_api_key)

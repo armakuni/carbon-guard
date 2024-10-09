@@ -9,7 +9,7 @@ class FromFileCarbonIntensityRepo(object):
 
     async def get_carbon_intensity(self) -> int:
         parsed_rows = self._read_csv()
-        utcnow = dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+        utcnow = dt.datetime.now(dt.UTC)
 
         intensity_in_present = filter(lambda x: x[0] <= utcnow, parsed_rows)
         max_date = max(intensity_in_present, key=lambda x: x[0])
@@ -32,7 +32,7 @@ class FromFileCarbonIntensityRepo(object):
         self, within: dt.timedelta
     ) -> dt.datetime:
         parsed_rows = self._read_csv()
-        utcnow = dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+        utcnow = dt.datetime.now(dt.UTC)
 
         intensity_in_future = filter(lambda x: x[0] > utcnow, parsed_rows)
         intensity_within_duratation = filter(
