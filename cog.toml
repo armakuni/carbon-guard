@@ -6,8 +6,8 @@ branch_whitelist = [
   "release/**"
 ]
 pre_bump_hooks = [
-    "poetry version {{version}}",
-    "poetry lock --no-update",
+    "uv version {{version}}",
+    "uv lock --no-upgrade",
 ]
 post_bump_hooks = [
     "git push origin v{{version}}",

@@ -9,7 +9,7 @@ pipelines from running when the carbon intensity is high.
 
 
 ```shell,script(name="usage",expected_exit_code=0)
-poetry run carbon_guard --help
+uv run carbon_guard --help
 ```
 
 ``` ,verify(script_name="usage",stream=stdout)
@@ -32,7 +32,7 @@ poetry run carbon_guard --help
 ### Check
 
 ```shell,script(name="usage-check",expected_exit_code=0)
-poetry run carbon_guard check --help
+uv run carbon_guard check --help
 ```
 
 ``` ,verify(script_name="usage-check",stream=stdout)
@@ -112,7 +112,7 @@ poetry run carbon_guard check --help
 ### Schedule
 
 ```shell,script(name="usage-schedule",expected_exit_code=0)
-poetry run carbon_guard schedule --help
+uv run carbon_guard schedule --help
 ```
 
 ``` ,verify(script_name="usage-schedule",stream=stdout)
@@ -163,7 +163,7 @@ Comparing carbon levels with the expected outcome for high carbon intensity:
 
 ```shell,script(name="carbon_threshold_exceeded",  expected_exit_code=1)
 carbon_intensity_is 1000
-poetry run carbon_guard check --max-carbon-intensity=999
+uv run carbon_guard check --max-carbon-intensity=999
 ```
 
 ``` ,verify(script_name="carbon_threshold_exceeded", stream=stdout)
@@ -174,14 +174,14 @@ You may also return a successful exit code even on high carbon intensity by pass
 
 ```shell,script(name="carbon_threshold_exceeded_and_skipped",  expected_exit_code=0)
 carbon_intensity_is 1000
-poetry run carbon_guard check --max-carbon-intensity=999 --advise-only
+uv run carbon_guard check --max-carbon-intensity=999 --advise-only
 ```
 
 Comparing carbon levels with the expected outcome for low carbon intensity:
 
 ```shell,script(name="carbon_threshold_ok",  expected_exit_code=0)
 carbon_intensity_is 999
-poetry run carbon_guard check --max-carbon-intensity=999
+uv run carbon_guard check --max-carbon-intensity=999
 ```
 
 ``` ,verify(script_name="carbon_threshold_ok", stream=stdout)
@@ -201,7 +201,7 @@ Using the [national-grid-eso-carbon-intensity data source](https://carbonintensi
 [**note**] this only supplies data for the United Kingdom.
 
 ```shell,script(name="national_grid_eso_carbon_threshold_ok",  expected_exit_code=0)
-poetry run carbon_guard check --data-source national-grid-eso-carbon-intensity --max-carbon-intensity=100000
+uv run carbon_guard check --data-source national-grid-eso-carbon-intensity --max-carbon-intensity=100000
 ```
 
 ``` ,skip()
@@ -211,7 +211,7 @@ Carbon intensity is 98 gCO2eq/kWh, which is below or equal to the max of 100000 
 You can use this data provider to schedule find the forecasted lowest carbon intensity within a given time period.
 
 ```shell,script(name="national_grid_eso_carbon_threshold_ok",  expected_exit_code=0)
-poetry run carbon_guard schedule --data-source national-grid-eso-carbon-intensity --within "1 hour"
+uv run carbon_guard schedule --data-source national-grid-eso-carbon-intensity --within "1 hour"
 ```
 
 ``` ,skip()
@@ -225,7 +225,7 @@ Using the [co2-signal data source](https://www.co2signal.com/)
 
 ```shell,script(name="co2-signal-carbon-threshold-ok",  expected_exit_code=0)
 # export CO2_SIGNAL_API_KEY=<your_api_key_here>
-poetry run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
+uv run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
 ```
 
 ``` ,skip()
@@ -238,7 +238,7 @@ if you don't provide a `co2-signal-country-code` the call will fail.
 
 ```shell,script(name="co2-signal-no-country-code-error",  expected_exit_code=1)
 # export CO2_SIGNAL_API_KEY=<your_api_key_here>
-poetry run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000
+uv run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000
 ```
 
 ``` ,verify(script_name="co2-signal-no-country-code-error", stream=stdout)
@@ -249,7 +249,7 @@ if you don't provide a `co2-signal-api-key` the call will fail.
 
 ```shell,script(name="co2-signal-no-api-key-error",  expected_exit_code=1)
 export CO2_SIGNAL_API_KEY=""
-poetry run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
+uv run carbon_guard check --data-source co2-signal --max-carbon-intensity=100000 --co2-signal-country-code=GB
 ```
 
 ``` ,verify(script_name="co2-signal-no-api-key-error", stream=stdout)
