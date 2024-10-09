@@ -2,6 +2,152 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.7.4](https://github.com/armakuni/carbon-guard/compare/5e562901f45c69eb8a408004a3ff52f803551d30..v0.7.4) - 2024-10-09
+#### Bug Fixes
+- bump project version correctly with cocogitto - ([b38b593](https://github.com/armakuni/carbon-guard/commit/b38b5935784a5943bf749c65012e55f7e72dfbcb)) - Joe Blackman
+- Trigger release - ([15e0962](https://github.com/armakuni/carbon-guard/commit/15e0962ca8328d96c36c128b15f0038573c46bd3)) - Joe Blackman
+#### Build system
+- **(deps)** Bump pydantic from 2.9.1 to 2.9.2 - ([fe9c60e](https://github.com/armakuni/carbon-guard/commit/fe9c60e1edb8c76021e278ab3a6ca5ca5326a6e1)) - dependabot[bot]
+- **(deps)** Bump specdown/setup-specdown-action from 0.2.29 to 0.2.30 - ([31917ec](https://github.com/armakuni/carbon-guard/commit/31917ecb49d9ba255381a764c0fbc5ddfc3bee07)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.9.0 to 2.9.1 - ([aea517b](https://github.com/armakuni/carbon-guard/commit/aea517b55729332dc27be6192979b12b1c6779aa)) - dependabot[bot]
+- **(deps)** Bump armakuni/github-actions from 0.19.3 to 0.19.4 - ([3ee8f44](https://github.com/armakuni/carbon-guard/commit/3ee8f4489fdf3da5ccb90d1c81609782ebefb142)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.8.2 to 2.9.0 - ([0bc8852](https://github.com/armakuni/carbon-guard/commit/0bc88524c8218e366d50c4a2bc45543afedca099)) - dependabot[bot]
+- **(deps)** Bump httpx from 0.27.0 to 0.27.2 - ([bc0e687](https://github.com/armakuni/carbon-guard/commit/bc0e6871c8a43c6a9efdf84f7d7289e69f6fd7fa)) - dependabot[bot]
+- **(deps)** Bump typer from 0.12.4 to 0.12.5 - ([38ec145](https://github.com/armakuni/carbon-guard/commit/38ec145fa4cb512bc67e381cc6f1f5e63a2b0d6c)) - dependabot[bot]
+- **(deps)** Bump typer from 0.12.3 to 0.12.4 - ([602d7a5](https://github.com/armakuni/carbon-guard/commit/602d7a52eae4076c975e9b9c839380e6c0badb85)) - dependabot[bot]
+- **(deps)** Bump certifi from 2024.2.2 to 2024.7.4 - ([21058c1](https://github.com/armakuni/carbon-guard/commit/21058c114f8119d150793d62f29f41e4fa333574)) - dependabot[bot]
+- **(deps)** Update certificates - ([1882c2f](https://github.com/armakuni/carbon-guard/commit/1882c2f7a75be8adca03e1e827bbf084c17ecb02)) - Billie Thompson
+- **(deps)** Update ruff and fix failing lints - ([0927839](https://github.com/armakuni/carbon-guard/commit/09278398a3c3026bfb1ffde36c341749ded8ea0b)) - Billie Thompson
+- **(deps)** Update ruff and fix failing lints - ([4c7ab85](https://github.com/armakuni/carbon-guard/commit/4c7ab85106057d08a61d256d149bfa2178c278c5)) - Billie Thompson
+- **(deps)** Bump pydantic from 2.8.0 to 2.8.2 - ([4707a88](https://github.com/armakuni/carbon-guard/commit/4707a8862befd87df60161034e428236ee9f554d)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.8.0 to 2.8.2 - ([6948040](https://github.com/armakuni/carbon-guard/commit/6948040581f9d24f9f81ba4ab82d4cf3e0e4f148)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.7.4 to 2.8.0 - ([5fb04ce](https://github.com/armakuni/carbon-guard/commit/5fb04ce867b74ba68e0e56e7ab42a22bd06f6548)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.7.4 to 2.8.0 - ([58c9f99](https://github.com/armakuni/carbon-guard/commit/58c9f9901a823d8612584a9c4bde35d30a8f2a30)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.7.3 to 2.7.4 - ([2f3ca1d](https://github.com/armakuni/carbon-guard/commit/2f3ca1d80925d3c9f387c3213790bc0308094425)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.7.3 to 2.7.4 - ([c3358bf](https://github.com/armakuni/carbon-guard/commit/c3358bf651d522b6a1e12ef41592d1f17ab3ac82)) - dependabot[bot]
+- **(deps)** Bump oknozor/cocogitto-action from 3.7 to 3.8 - ([2c113e2](https://github.com/armakuni/carbon-guard/commit/2c113e248cf1fce7b30310a9c7eb6974184b518d)) - dependabot[bot]
+- **(deps)** Bump oknozor/cocogitto-action from 3.7 to 3.8 - ([5e77a36](https://github.com/armakuni/carbon-guard/commit/5e77a3678b6c3014ea2ccfaa67d61c015b5eb21b)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.7.1 to 2.7.3 - ([e9876b2](https://github.com/armakuni/carbon-guard/commit/e9876b222aed80b3b1a64e3c022387ef4ebe8352)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.7.1 to 2.7.3 - ([fe93ecf](https://github.com/armakuni/carbon-guard/commit/fe93ecf07c350ab2861f49403bb30661337d9b1a)) - dependabot[bot]
+- **(deps)** Bump oknozor/cocogitto-action from 3.6 to 3.7 - ([67f1d16](https://github.com/armakuni/carbon-guard/commit/67f1d16cafa153ba1f82facdda6d89fb77a2e0a2)) - dependabot[bot]
+- **(deps)** Bump oknozor/cocogitto-action from 3.6 to 3.7 - ([052c871](https://github.com/armakuni/carbon-guard/commit/052c8711fcd96fd5c0d7a6b95d5971eb419b56e8)) - dependabot[bot]
+- **(deps)** Bump versions - ([f8c7e76](https://github.com/armakuni/carbon-guard/commit/f8c7e768b368553c149bfccc8cf9c3ce342bfe60)) - Billie Thompson
+- **(deps)** Bump versions - ([20ed917](https://github.com/armakuni/carbon-guard/commit/20ed917418fd2c25f7ffcb70fe907d9d7d60e1ca)) - Billie Thompson
+- **(deps)** Bump pydantic from 2.6.4 to 2.7.0 - ([035d558](https://github.com/armakuni/carbon-guard/commit/035d55895a093a23dd70cc0ea16ac9a0e8d256ec)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.6.4 to 2.7.0 - ([a1abbf3](https://github.com/armakuni/carbon-guard/commit/a1abbf3629bffb4caf910894ed279e9ac6431cfa)) - dependabot[bot]
+- **(deps)** Bump typer from 0.12.2 to 0.12.3 - ([2692db2](https://github.com/armakuni/carbon-guard/commit/2692db2a88b67d832bc8e3c7d5eb9e20f0267b51)) - dependabot[bot]
+- **(deps)** Bump typer from 0.12.2 to 0.12.3 - ([e7d9111](https://github.com/armakuni/carbon-guard/commit/e7d9111caf4be78a3a0e0b12cdfe929cd5ebc112)) - dependabot[bot]
+- **(deps)** Bump typer from 0.12.1 to 0.12.2 - ([3effdfa](https://github.com/armakuni/carbon-guard/commit/3effdfabdf38a2e30b044bdf07b5d3a44389bb6c)) - dependabot[bot]
+- **(deps)** Bump typer from 0.12.1 to 0.12.2 - ([ae1b659](https://github.com/armakuni/carbon-guard/commit/ae1b65955da522bd368907a2172763732bdf0ce8)) - dependabot[bot]
+- **(deps)** Bump typer from 0.12.0 to 0.12.1 - ([ad5f650](https://github.com/armakuni/carbon-guard/commit/ad5f6505cc62174b8b7b540d16bf99b7ba771dfd)) - dependabot[bot]
+- **(deps)** Bump typer from 0.12.0 to 0.12.1 - ([b2cbe32](https://github.com/armakuni/carbon-guard/commit/b2cbe320f8441a04e56b3d7c20ca72c401c9351d)) - dependabot[bot]
+- **(deps)** Bump typer from 0.11.1 to 0.12.0 - ([0624316](https://github.com/armakuni/carbon-guard/commit/06243168c9326d026d3e93822c32bd3e22b3e84c)) - dependabot[bot]
+- **(deps)** Bump typer from 0.11.1 to 0.12.0 - ([cd2c0fd](https://github.com/armakuni/carbon-guard/commit/cd2c0fd8204500c82d83c3babdceae5b6ab2cc90)) - dependabot[bot]
+- **(deps)** Bump types-dateparser from 1.1.4.20240106 to 1.1.4.20240331 - ([ea8d38f](https://github.com/armakuni/carbon-guard/commit/ea8d38f0b4bc127ec04b7b1ede01c883239c8dd1)) - dependabot[bot]
+- **(deps)** Bump types-dateparser from 1.1.4.20240106 to 1.1.4.20240331 - ([524c5fb](https://github.com/armakuni/carbon-guard/commit/524c5fb0283fc0225364cdf5c7b31d9032e67167)) - dependabot[bot]
+- **(deps)** Bump typer from 0.11.0 to 0.11.1 - ([f9883de](https://github.com/armakuni/carbon-guard/commit/f9883de7c012115b33a66d48811c2eca5b73ab25)) - dependabot[bot]
+- **(deps)** Bump typer from 0.11.0 to 0.11.1 - ([9af02a2](https://github.com/armakuni/carbon-guard/commit/9af02a275b1875fa1ebe7e111c650d2a619899b7)) - dependabot[bot]
+- **(deps)** Bump typer from 0.10.0 to 0.11.0 - ([bb7de17](https://github.com/armakuni/carbon-guard/commit/bb7de17cb545299be9cfffb8b9c30d40c97e97b1)) - dependabot[bot]
+- **(deps)** Bump typer from 0.10.0 to 0.11.0 - ([9c7de24](https://github.com/armakuni/carbon-guard/commit/9c7de24dc5d283db4afa1fb90dea346b47c97af0)) - dependabot[bot]
+- **(deps)** Bump typer from 0.9.0 to 0.10.0 - ([ae16247](https://github.com/armakuni/carbon-guard/commit/ae16247ddd6823a7d544755e25c5d6b09e22731a)) - dependabot[bot]
+- **(deps)** Bump typer from 0.9.0 to 0.10.0 - ([ba0cf49](https://github.com/armakuni/carbon-guard/commit/ba0cf4997cc37b443fc30b643b2c13b549bceea3)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.6.3 to 2.6.4 - ([9f92636](https://github.com/armakuni/carbon-guard/commit/9f92636fe20d7d39e8cb8b9b77664778dfb18678)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.6.3 to 2.6.4 - ([4b596bf](https://github.com/armakuni/carbon-guard/commit/4b596bfa6f0a609035f9c32835b791ff1209e9ea)) - dependabot[bot]
+- **(deps)** Bump softprops/action-gh-release from 1 to 2 - ([bbfd6af](https://github.com/armakuni/carbon-guard/commit/bbfd6aff8af98a247db9c85614ca45d18198decd)) - dependabot[bot]
+- **(deps)** Bump softprops/action-gh-release from 1 to 2 - ([51301f5](https://github.com/armakuni/carbon-guard/commit/51301f58e05bb3384c72ffbaba57075a63b0b51c)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.6.2 to 2.6.3 - ([eb98bd4](https://github.com/armakuni/carbon-guard/commit/eb98bd4352ba05e295f563000b7885744c68d2e9)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.6.2 to 2.6.3 - ([761413b](https://github.com/armakuni/carbon-guard/commit/761413be4c6bbf04e98218bef70a5af2072c449e)) - dependabot[bot]
+- **(deps)** Bump specdown/setup-specdown-action from 0.2.28 to 0.2.29 - ([eb2638e](https://github.com/armakuni/carbon-guard/commit/eb2638ea3172c73419eb4d370a1940a56413671b)) - dependabot[bot]
+- **(deps)** Bump specdown/setup-specdown-action from 0.2.28 to 0.2.29 - ([afd1abe](https://github.com/armakuni/carbon-guard/commit/afd1abe3d4832851d38697ae59772bbbee926ead)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.6.1 to 2.6.2 - ([1e1ef31](https://github.com/armakuni/carbon-guard/commit/1e1ef31ee80a5275351da8b7db71f6cafbca08e3)) - dependabot[bot]
+- **(deps)** Bump pydantic from 2.6.1 to 2.6.2 - ([00af27f](https://github.com/armakuni/carbon-guard/commit/00af27fcfc692c4de1e72b1087c58535c51c1fcb)) - dependabot[bot]
+- **(deps)** Bump armakuni/github-actions from 0.19.1 to 0.19.3 - ([b4095d2](https://github.com/armakuni/carbon-guard/commit/b4095d2aa31e290c4bed6b13d79a317ee78cd81d)) - dependabot[bot]
+- **(deps)** Bump armakuni/github-actions from 0.19.1 to 0.19.3 - ([76606c2](https://github.com/armakuni/carbon-guard/commit/76606c265338e0434e3b86b86d66eb7ae3519640)) - dependabot[bot]
+- **(deps-dev)** Bump black from 24.8.0 to 24.10.0 - ([60736e9](https://github.com/armakuni/carbon-guard/commit/60736e9e98b421e1278d2454e564710acc0870b4)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.6.8 to 0.6.9 - ([d54b073](https://github.com/armakuni/carbon-guard/commit/d54b0738b3f4b20a6c91075ce0fb3cd03cd77946)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.6.7 to 0.6.8 - ([a3c1fe3](https://github.com/armakuni/carbon-guard/commit/a3c1fe35fe238c924de51cc359cc7362d0b478a9)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.6.6 to 0.6.7 - ([8fce4a2](https://github.com/armakuni/carbon-guard/commit/8fce4a2d87db537b1a88b332331c743b2b80178a)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.6.5 to 0.6.6 - ([405d1a8](https://github.com/armakuni/carbon-guard/commit/405d1a80876b2af55f0e7165b4b08c10b3072bbb)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.6.4 to 0.6.5 - ([0e60c94](https://github.com/armakuni/carbon-guard/commit/0e60c94ed3f49263aa0e5bf7522450e18c2aa1a5)) - dependabot[bot]
+- **(deps-dev)** Bump pytest from 8.3.2 to 8.3.3 - ([e0d3680](https://github.com/armakuni/carbon-guard/commit/e0d368052a5c0fdb81b9030fe76b568e4c716a47)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.6.3 to 0.6.4 - ([67e0f8a](https://github.com/armakuni/carbon-guard/commit/67e0f8adfd2b2c34137132d1482d6d84bdf16438)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.6.2 to 0.6.3 - ([dea133a](https://github.com/armakuni/carbon-guard/commit/dea133a83224319740c0fe791d970d87c8e94e05)) - dependabot[bot]
+- **(deps-dev)** Bump mypy from 1.11.1 to 1.11.2 - ([a53b46b](https://github.com/armakuni/carbon-guard/commit/a53b46baaf9ef62876df2862916ceb3807d70ade)) - dependabot[bot]
+- **(deps-dev)** Bump pytest-asyncio from 0.23.8 to 0.24.0 - ([3a9ece4](https://github.com/armakuni/carbon-guard/commit/3a9ece404efe692daa3cc106792b3a6c028ba38f)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.6.1 to 0.6.2 - ([3a3a6b9](https://github.com/armakuni/carbon-guard/commit/3a3a6b9fb56d95af2569bddd74c05957ce6ccd3b)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.6.0 to 0.6.1 - ([bdd009c](https://github.com/armakuni/carbon-guard/commit/bdd009c9b87dfe1ea898d7c4bb8b2ffa9a443634)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.5.7 to 0.6.0 - ([97c45b9](https://github.com/armakuni/carbon-guard/commit/97c45b9870715dad3cb7cd0122e54e4d3c15d62e)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.5.6 to 0.5.7 - ([20d7074](https://github.com/armakuni/carbon-guard/commit/20d70747ecfe943baa0cfe0e19cde7ac2097976d)) - dependabot[bot]
+- **(deps-dev)** Bump black from 24.4.2 to 24.8.0 - ([9f7b1a4](https://github.com/armakuni/carbon-guard/commit/9f7b1a4eb056a0cad58d4a190402fd198ee45252)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.5.5 to 0.5.6 - ([962c0f8](https://github.com/armakuni/carbon-guard/commit/962c0f84567c017251196d640f973a5ab76aafeb)) - dependabot[bot]
+- **(deps-dev)** Bump mypy from 1.11.0 to 1.11.1 - ([16d98a3](https://github.com/armakuni/carbon-guard/commit/16d98a314f7f85b720b7d41a092dfe4fb7493f16)) - dependabot[bot]
+- **(deps-dev)** Bump pytest from 8.3.1 to 8.3.2 - ([4955176](https://github.com/armakuni/carbon-guard/commit/49551760dd11681d4d1492a980f20f8b7e9932f5)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.5.4 to 0.5.5 - ([d4162f2](https://github.com/armakuni/carbon-guard/commit/d4162f2642fd8ca4558b491923f3d6c0cfc02100)) - dependabot[bot]
+- **(deps-dev)** Bump pytest from 8.2.2 to 8.3.1 - ([7bbdbe3](https://github.com/armakuni/carbon-guard/commit/7bbdbe38ecbf5efdc03fd1138922fa2d64b92c27)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.5.3 to 0.5.4 - ([73238df](https://github.com/armakuni/carbon-guard/commit/73238df6b3aea5bd28036110c8c64bf6ea0ba11c)) - dependabot[bot]
+- **(deps-dev)** Bump mypy from 1.10.1 to 1.11.0 - ([4f4692b](https://github.com/armakuni/carbon-guard/commit/4f4692b61d277c254cfe0789117aeabc0c880b65)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.5.2 to 0.5.3 - ([7d264ab](https://github.com/armakuni/carbon-guard/commit/7d264abc01a0c62d3a0af7899bba178740f9ae87)) - dependabot[bot]
+- **(deps-dev)** Bump pytest-asyncio from 0.23.7 to 0.23.8 - ([9235411](https://github.com/armakuni/carbon-guard/commit/923541114f7b122a7e680fa238c318e3bd3db464)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.5.1 to 0.5.2 - ([4410798](https://github.com/armakuni/carbon-guard/commit/44107980c05d66a341ba37c52ab5cbfd0f7f9f8d)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.10 to 0.5.0 - ([bda9aa4](https://github.com/armakuni/carbon-guard/commit/bda9aa461e3606780deff869924f4fcfff4157ae)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.10 to 0.5.0 - ([cd1f945](https://github.com/armakuni/carbon-guard/commit/cd1f9455708acab189ff18a91cb890360394de5a)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.9 to 0.4.10 - ([29ee556](https://github.com/armakuni/carbon-guard/commit/29ee5560dbf58e14a34ea3d050c1ef79aa337f62)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.9 to 0.4.10 - ([57a8994](https://github.com/armakuni/carbon-guard/commit/57a89943db2d9d01332d9eacb4bdf931109f91f3)) - dependabot[bot]
+- **(deps-dev)** Bump mypy from 1.10.0 to 1.10.1 - ([bde40db](https://github.com/armakuni/carbon-guard/commit/bde40db10ccb766d0525f01621e9dbc473c55761)) - dependabot[bot]
+- **(deps-dev)** Bump mypy from 1.10.0 to 1.10.1 - ([3951b5f](https://github.com/armakuni/carbon-guard/commit/3951b5fe10b4e6b77fbbea4d268d90c8d3f097ca)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.8 to 0.4.9 - ([3979061](https://github.com/armakuni/carbon-guard/commit/3979061be47050c2b3082fd7c214104ad7aa08ab)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.8 to 0.4.9 - ([674f76d](https://github.com/armakuni/carbon-guard/commit/674f76d392c2eb0879431317bc44caec0e54b772)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.7 to 0.4.8 - ([2692dc3](https://github.com/armakuni/carbon-guard/commit/2692dc3eb50dd02286748752c0c9a90ad7604862)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.7 to 0.4.8 - ([bfd42b0](https://github.com/armakuni/carbon-guard/commit/bfd42b05884cc02a7568ae9858a20d9d58c96edf)) - dependabot[bot]
+- **(deps-dev)** Bump pytest from 8.2.1 to 8.2.2 - ([e3e1e06](https://github.com/armakuni/carbon-guard/commit/e3e1e0618e0db4dfa18505a23eb3c90c06322c2a)) - dependabot[bot]
+- **(deps-dev)** Bump pytest from 8.2.1 to 8.2.2 - ([70919ee](https://github.com/armakuni/carbon-guard/commit/70919eee503979efe2e95aa94d408e8ea109a205)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.4 to 0.4.7 - ([a058112](https://github.com/armakuni/carbon-guard/commit/a0581128c3a181d3ab39e21e1017a85cfc5a8a8d)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.4.4 to 0.4.7 - ([6263070](https://github.com/armakuni/carbon-guard/commit/6263070d4d2c3650e9b0fd102f11380bc02c44aa)) - dependabot[bot]
+- **(deps-dev)** Bump requests from 2.31.0 to 2.32.2 - ([b861a1c](https://github.com/armakuni/carbon-guard/commit/b861a1ca3bbbc4b96e449024334cc1ac73b8c9a6)) - dependabot[bot]
+- **(deps-dev)** Bump requests from 2.31.0 to 2.32.2 - ([0688e28](https://github.com/armakuni/carbon-guard/commit/0688e284b05f25d0f37f452e992f16d6ef6e5ba7)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.6 to 0.4.4 - ([f722ba9](https://github.com/armakuni/carbon-guard/commit/f722ba981719574058fb982f3f9c0485f10cc23a)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.6 to 0.4.4 - ([3c90b21](https://github.com/armakuni/carbon-guard/commit/3c90b2155180b088b248fdaa8ce4fb815935f8f3)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.5 to 0.3.6 - ([d7c5a45](https://github.com/armakuni/carbon-guard/commit/d7c5a459865dad2bf4ea5d16917d419788263671)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.5 to 0.3.6 - ([802cf84](https://github.com/armakuni/carbon-guard/commit/802cf84b1889ca3cf4541f40f5996faf50331725)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.4 to 0.3.5 - ([7a2c5f3](https://github.com/armakuni/carbon-guard/commit/7a2c5f3277362babc12a30b8f67a1753fbb23b1f)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.4 to 0.3.5 - ([9adba16](https://github.com/armakuni/carbon-guard/commit/9adba1633d5b4f4f897c88db2aebc41d23e28a07)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.3 to 0.3.4 - ([2ea54cc](https://github.com/armakuni/carbon-guard/commit/2ea54cc676d2c694c2097a7619b555a9bb20c799)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.3 to 0.3.4 - ([4a349f9](https://github.com/armakuni/carbon-guard/commit/4a349f9e4802631063f605958b267b0f1c114a2b)) - dependabot[bot]
+- **(deps-dev)** Bump pytest-asyncio from 0.23.5.post1 to 0.23.6 - ([a9de02a](https://github.com/armakuni/carbon-guard/commit/a9de02ac7c4d6c4682a6db604c7ce0e0ced8a0ca)) - dependabot[bot]
+- **(deps-dev)** Bump pytest-asyncio from 0.23.5.post1 to 0.23.6 - ([c2af683](https://github.com/armakuni/carbon-guard/commit/c2af6836bf341d9b16f0efccbecb7fa86df9ff51)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.2 to 0.3.3 - ([0ed4f4a](https://github.com/armakuni/carbon-guard/commit/0ed4f4ab2e68ea18b854759b9d1a43db4ec3dbb4)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.2 to 0.3.3 - ([dad6865](https://github.com/armakuni/carbon-guard/commit/dad686585e0d7487aee1cdad1e1e284fbba38a41)) - dependabot[bot]
+- **(deps-dev)** Bump black from 24.2.0 to 24.3.0 - ([be4c26b](https://github.com/armakuni/carbon-guard/commit/be4c26bb05e8522ebd91809d5c6d6fb76d849e06)) - dependabot[bot]
+- **(deps-dev)** Bump black from 24.2.0 to 24.3.0 - ([d0957ec](https://github.com/armakuni/carbon-guard/commit/d0957ec3b1797fb9b40cc1c61ceec7dd128d7044)) - dependabot[bot]
+- **(deps-dev)** Bump pytest from 8.0.2 to 8.1.1 - ([4279f55](https://github.com/armakuni/carbon-guard/commit/4279f55c7dcd893c046bc086965e16bf247204c1)) - dependabot[bot]
+- **(deps-dev)** Bump pytest from 8.0.2 to 8.1.1 - ([ae00347](https://github.com/armakuni/carbon-guard/commit/ae0034741c59a9aea1ff2ba41100d75f6ae38de8)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.1 to 0.3.2 - ([2434b5f](https://github.com/armakuni/carbon-guard/commit/2434b5fcf1f2876dd0e13eb54bff9d3a33ffda18)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.1 to 0.3.2 - ([ac1d914](https://github.com/armakuni/carbon-guard/commit/ac1d9145ce0c238bd44e088212feb8a924937f1e)) - dependabot[bot]
+- **(deps-dev)** Bump pytest-asyncio from 0.23.5 to 0.23.5.post1 - ([4048329](https://github.com/armakuni/carbon-guard/commit/4048329a3cfb3edf7f1435a3309f2a2f9d0acbc5)) - dependabot[bot]
+- **(deps-dev)** Bump pytest-asyncio from 0.23.5 to 0.23.5.post1 - ([28abf02](https://github.com/armakuni/carbon-guard/commit/28abf02193105fecaf45126ac50f678296c62dcb)) - dependabot[bot]
+- **(deps-dev)** Bump mypy from 1.8.0 to 1.9.0 - ([7f1f05a](https://github.com/armakuni/carbon-guard/commit/7f1f05a98c1003f2a46b70b8dd865a571a317259)) - dependabot[bot]
+- **(deps-dev)** Bump mypy from 1.8.0 to 1.9.0 - ([49536b0](https://github.com/armakuni/carbon-guard/commit/49536b027008ae30a3ded15a036d821440a8adc1)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.0 to 0.3.1 - ([0cee4b8](https://github.com/armakuni/carbon-guard/commit/0cee4b8840d2b431e9d77c77d3f9701eadf087d8)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.3.0 to 0.3.1 - ([bc52c97](https://github.com/armakuni/carbon-guard/commit/bc52c97aadd89449240ed2157a8a0e738536bcbd)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.2.2 to 0.3.0 - ([c7b1930](https://github.com/armakuni/carbon-guard/commit/c7b1930f946b1fdd0d23ca3f1ba8322567f1c63c)) - dependabot[bot]
+- **(deps-dev)** Bump ruff from 0.2.2 to 0.3.0 - ([f291b70](https://github.com/armakuni/carbon-guard/commit/f291b7052e1baf1a3df290f8807de87252f8a3f6)) - dependabot[bot]
+- **(deps-dev)** Bump pytest from 8.0.1 to 8.0.2 - ([37351e6](https://github.com/armakuni/carbon-guard/commit/37351e6488d24f6e5a024d7a3c12f53a4e181357)) - dependabot[bot]
+- **(deps-dev)** Bump pytest from 8.0.1 to 8.0.2 - ([f759617](https://github.com/armakuni/carbon-guard/commit/f7596179b619cda932227bc1516303f00e4cb2cf)) - dependabot[bot]
+- **(deps-dev)** Bump black from 23.12.1 to 24.2.0 - ([50d61bb](https://github.com/armakuni/carbon-guard/commit/50d61bb743ef92753cd180e343621cb26c3bae14)) - dependabot[bot]
+- **(deps-dev)** Bump black from 23.12.1 to 24.2.0 - ([5e56290](https://github.com/armakuni/carbon-guard/commit/5e562901f45c69eb8a408004a3ff52f803551d30)) - dependabot[bot]
+- migrate to uv and update dependencies - ([8a8aee8](https://github.com/armakuni/carbon-guard/commit/8a8aee8e807aa089dc5a78f7a976ad8314a78054)) - Joe Blackman
+- Fix for urllib CVE-2024-37891 - ([257b66d](https://github.com/armakuni/carbon-guard/commit/257b66d475d7c980d67f0586f1ab2da42850e4d3)) - Billie Thompson
+- Fix for urllib CVE-2024-37891 - ([146c513](https://github.com/armakuni/carbon-guard/commit/146c51375afe717005ac3dd8236a2407d0edb662)) - Billie Thompson
+#### Continuous Integration
+- switch from poetry to uv in github action - ([c2e85c6](https://github.com/armakuni/carbon-guard/commit/c2e85c65f02c011dab6aa86306cc8ebf143c9379)) - Joe Blackman
+- Remove the --no-root flag as it's not appropriate here - ([cdb1bca](https://github.com/armakuni/carbon-guard/commit/cdb1bcac18724eb53ad0956c5495939eeaa36d05)) - Billie Thompson
+- Remove the --no-root flag as it's not appropriate here - ([1e94c00](https://github.com/armakuni/carbon-guard/commit/1e94c00f77baa3f33dcf725c2722efcc3c296be9)) - Billie Thompson
+#### Documentation
+- Update readme formatting - ([8e01aee](https://github.com/armakuni/carbon-guard/commit/8e01aee7be6674c18d804ca0e559a579b7b2986c)) - Billie Thompson
+- Update readme formatting - ([1091e49](https://github.com/armakuni/carbon-guard/commit/1091e496af00847e1dd0e9578b93e71c79800fbf)) - Billie Thompson
+
+- - -
+
 ## [v0.7.3](https://github.com/armakuni/carbon-guard/compare/v0.7.2..v0.7.3) - 2024-02-23
 #### Bug Fixes
 - Update some deprecated keys - ([e9ad97f](https://github.com/armakuni/carbon-guard/commit/e9ad97f0d8cd54fc3d63e5f60aafd3c6292fd37e)) - Billie Thompson
