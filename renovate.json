@@ -1,6 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "timezone": "Europe/London",
+  "automergeType": "branch",
   "extends": [
-    "config:recommended"
+    "config:best-practices",
+    "schedule:automergeWeekdays",
+    ":automergeAll"
   ]
 }
