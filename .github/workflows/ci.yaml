@@ -7,12 +7,12 @@ on:
 
 jobs:
   validate-pipeline:
-    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@v0.19.4
+    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@a5fb943d5c31fcfaa03d562362224551d3e25acb # v0.19.4
 
   validate-action:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
       - uses: ./
         with:
           max_carbon_intensity: 10000
@@ -23,10 +23,10 @@ jobs:
         shell: bash
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: specdown/setup-specdown-action@v0.2.30
+    - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
+    - uses: specdown/setup-specdown-action@d922e0e08ad2f2878ca5b43e1ef79b156f3ccdc0 # v0.2.30
     - name: Install the latest version of uv
-      uses: astral-sh/setup-uv@v3
+      uses: astral-sh/setup-uv@77c28f02b3322332d4a4446b3177f426da8bf086 # v3
       with:
         version: "latest"
         enable-cache: true
@@ -60,18 +60,18 @@ jobs:
     outputs:
       version: ${{ steps.release.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
         with:
           fetch-depth: 0
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@77c28f02b3322332d4a4446b3177f426da8bf086 # v3
         with:
           version: "latest"
           enable-cache: true
       - name: Cocogitto release
         id: release
         continue-on-error: true
-        uses: oknozor/cocogitto-action@v3.8
+        uses: oknozor/cocogitto-action@5ae166018d8265bb2df85c1eb521e86a17b61085 # v3.8
         with:
           release: true
       - name: Generate Changelog
@@ -80,7 +80,7 @@ jobs:
 
       - name: Upload github release
         if: steps.release.outputs.version != ''
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 # v2
         with:
           body_path: GITHUB_CHANGELOG.md
           tag_name: ${{ steps.release.outputs.version }}
@@ -95,11 +95,11 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
         with:
           ref: ${{ needs.release.outputs.version }}
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@77c28f02b3322332d4a4446b3177f426da8bf086 # v3
         with:
           version: "latest"
           enable-cache: true
