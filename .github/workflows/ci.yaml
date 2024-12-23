@@ -26,7 +26,7 @@ jobs:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
     - uses: specdown/setup-specdown-action@d922e0e08ad2f2878ca5b43e1ef79b156f3ccdc0 # v0.2.30
     - name: Install the latest version of uv
-      uses: astral-sh/setup-uv@180f8b44399608a850e1db031fa65c77746566d3 # v5
+      uses: astral-sh/setup-uv@887a942a15af3a7626099df99e897a18d9e5ab3a # v5
       with:
         version: "latest"
         enable-cache: true
@@ -64,7 +64,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@180f8b44399608a850e1db031fa65c77746566d3 # v5
+        uses: astral-sh/setup-uv@887a942a15af3a7626099df99e897a18d9e5ab3a # v5
         with:
           version: "latest"
           enable-cache: true
@@ -99,7 +99,7 @@ jobs:
         with:
           ref: ${{ needs.release.outputs.version }}
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@180f8b44399608a850e1db031fa65c77746566d3 # v5
+        uses: astral-sh/setup-uv@887a942a15af3a7626099df99e897a18d9e5ab3a # v5
         with:
           version: "latest"
           enable-cache: true
