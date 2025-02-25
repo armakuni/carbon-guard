@@ -7,7 +7,7 @@ on:
 
 jobs:
   validate-pipeline:
-    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@c58de42e30374346839a84ee9a58d42e0ea29473 # v0.19.5
+    uses: armakuni/github-actions/.github/workflows/lint-pipeline.yml@11f2a137ef0371b345e6ef3eb19826cd1250bb06 # v0.19.6
 
   validate-action:
     runs-on: ubuntu-latest
