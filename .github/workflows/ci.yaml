@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-    - uses: specdown/setup-specdown-action@b6baf084676a4ef8fbe72190b041ebfb9009d9be # v0.2.31
+    - uses: specdown/setup-specdown-action@3479a13e83a0f2f3adacfd09d88ad6d660e01aee # v0.2.32
     - name: Install the latest version of uv
       uses: astral-sh/setup-uv@1edb52594c857e2b5b13128931090f0640537287 # v5
       with:
