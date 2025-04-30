@@ -1,12 +1,9 @@
+
 pull_request_rules:
-  - name: "Automatic merge when CI passes"
-    conditions:
-      - author=dependabot[bot]
-      - check-success=all-tests-succeeded
+  - name: Automatic merge when CI passes
+    conditions: []
     actions:
       queue:
-        method: merge
-
 queue_rules:
   - name: dep-update
     batch_size: 10
@@ -14,3 +11,5 @@ queue_rules:
     queue_conditions:
       - author=dependabot[bot]
       - check-success=all-tests-succeeded
+    merge_conditions: []
+    merge_method: merge
