@@ -12,7 +12,7 @@ jobs:
   validate-action:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./
         with:
           max_carbon_intensity: 10000
@@ -23,7 +23,7 @@ jobs:
         shell: bash
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
     - uses: specdown/setup-specdown-action@3479a13e83a0f2f3adacfd09d88ad6d660e01aee # v0.2.32
     - name: Install the latest version of uv
       uses: astral-sh/setup-uv@c7f87aa956e4c323abf06d5dec078e358f6b4d04 # v6
@@ -60,7 +60,7 @@ jobs:
     outputs:
       version: ${{ steps.release.outputs.version }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
       - name: Install the latest version of uv
@@ -95,7 +95,7 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: ${{ needs.release.outputs.version }}
       - name: Install the latest version of uv
