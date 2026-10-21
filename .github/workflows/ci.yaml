@@ -39,7 +39,7 @@ jobs:
         CO2_SIGNAL_API_KEY: ${{secrets.CO2_SIGNAL_API_KEY}}
       if: github.ref == 'refs/heads/main'
     - name: Spot vunerable dependencies
-      uses: aquasecurity/trivy-action@master
+      uses: aquasecurity/trivy-action@8f28faec26515256b6d22074d1d2a8986f4cbd87 # master
       with:
         scan-type: 'fs'
         exit-code: '1'
@@ -107,6 +107,6 @@ jobs:
         shell: bash
         run: uv build
       - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # release/v1
         with:
           skip-existing: true
